@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0",
+  "app_metadata": {
+    "session_id": "demo-session-001",
+    "package_name": "com.revrag.targetapp"
+  },
+  "screens": [
+    {
+      "id": "scr_login_01",
+      "fingerprint": "a1b2c3d4e5f6a7b8",
+      "name": "User authentication",
+      "purpose": "User authentication / login screen with phone OTP",
+      "screenshot_url": "screenshots/login.png",
+      "elements": [
+        {"id": "el_00", "role": "image", "label": "App Logo", "bounds": [340, 200, 740, 500], "actions": []},
+        {"id": "el_01", "role": "label", "label": "Welcome to RevRag", "bounds": [200, 550, 880, 620], "actions": []},
+        {"id": "el_02", "role": "text_input", "label": "Phone number", "bounds": [100, 700, 980, 800], "actions": ["type_text"]},
+        {"id": "el_03", "role": "button", "label": "Send OTP", "bounds": [300, 870, 780, 960], "actions": ["tap"]},
+        {"id": "el_04", "role": "label", "label": "Terms of Service", "bounds": [150, 1020, 930, 1070], "actions": []}
+      ],
+      "forms": [
+        {"id": "el_02", "label": "Phone number", "input_type": "text", "required": true}
+      ],
+      "design_tokens": {
+        "dominant_colors": [],
+        "font_styles": [],
+        "component_types": ["text_input", "button"],
+        "mode": null,
+        "tone": null
+      }
+    },
+    {
+      "id": "scr_otp_02",
+      "fingerprint": "b2c3d4e5f6a7b8c9",
+      "name": "OTP verification",
+      "purpose": "OTP verification screen for phone authentication",
+      "screenshot_url": "screenshots/otp.png",
+      "elements": [
+        {"id": "el_10", "role": "label", "label": "Enter OTP", "bounds": [200, 400, 880, 470], "actions": []},
+        {"id": "el_11", "role": "text_input", "label": "OTP code", "bounds": [200, 550, 880, 650], "actions": ["type_text"]},
+        {"id": "el_12", "role": "button", "label": "Verify", "bounds": [300, 750, 780, 840], "actions": ["tap"]},
+        {"id": "el_13", "role": "button", "label": "Resend OTP", "bounds": [300, 900, 780, 970], "actions": ["tap"]}
+      ],
+      "forms": [
+        {"id": "el_11", "label": "OTP code", "input_type": "text", "required": true}
+      ],
+      "design_tokens": {}
+    },
+    {
+      "id": "scr_dash_03",
+      "fingerprint": "c3d4e5f6a7b8c9d0",
+      "name": "Main dashboard",
+      "purpose": "Main dashboard showing key app sections and notifications",
+      "screenshot_url": "screenshots/dashboard.png",
+      "elements": [
+        {"id": "el_20", "role": "label", "label": "Dashboard", "bounds": [50, 50, 400, 110], "actions": []},
+        {"id": "el_21", "role": "label", "label": "Notifications", "bounds": [50, 150, 400, 210], "actions": []},
+        {"id": "el_22", "role": "button", "label": "View Feed", "bounds": [50, 300, 520, 390], "actions": ["tap"]},
+        {"id": "el_23", "role": "button", "label": "Profile", "bounds": [560, 300, 1030, 390], "actions": ["tap"]},
+        {"id": "el_24", "role": "button", "label": "KYC Form", "bounds": [50, 450, 520, 540], "actions": ["tap"]},
+        {"id": "el_25", "role": "button", "label": "Settings", "bounds": [560, 450, 1030, 540], "actions": ["tap"]}
+      ],
+      "forms": [],
+      "design_tokens": {}
+    },
+    {
+      "id": "scr_profile_04",
+      "fingerprint": "d4e5f6a7b8c9d0e1",
+      "name": "User profile",
+      "purpose": "User profile screen with personal information",
+      "screenshot_url": "screenshots/profile.png",
+      "elements": [
+        {"id": "el_30", "role": "image", "label": "Profile Photo", "bounds": [340, 100, 740, 500], "actions": []},
+        {"id": "el_31", "role": "label", "label": "User Name", "bounds": [200, 550, 880, 620], "actions": []},
+        {"id": "el_32", "role": "label", "label": "Email", "bounds": [200, 650, 880, 710], "actions": []},
+        {"id": "el_33", "role": "button", "label": "Edit Profile", "bounds": [300, 800, 780, 890], "actions": ["tap"]}
+      ],
+      "forms": [],
+      "design_tokens": {}
+    }
+  ],
+  "transitions": [
+    {"from": "scr_login_01", "to": "scr_otp_02", "action": {"type": "tap", "target": "el_03"}},
+    {"from": "scr_otp_02", "to": "scr_dash_03", "action": {"type": "tap", "target": "el_12"}},
+    {"from": "scr_dash_03", "to": "scr_profile_04", "action": {"type": "tap", "target": "el_23"}}
+  ],
+  "journeys": [
+    {
+      "name": "Login to Profile",
+      "steps": ["scr_login_01", "scr_otp_02", "scr_dash_03", "scr_profile_04"]
+    }
+  ],
+  "global_design_system": {
+    "color_palette": [],
+    "spacing_values": [],
+    "recurring_components": ["button", "text_input", "label"],
+    "typography_hierarchy": [],
+    "tone": null,
+    "mode": null
+  },
+  "scan_metadata": {
+    "total_steps": 8,
+    "screens_discovered": 4,
+    "transitions_discovered": 3,
+    "duplicates_merged": 1,
+    "exploration_duration_seconds": 12.5,
+    "pack_size_bytes": 3200
+  }
+}

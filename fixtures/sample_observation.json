@@ -1,0 +1,103 @@
+{
+  "session_id": "demo-session-001",
+  "step": 0,
+  "screenshot_b64": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+  "ui_tree": {
+    "package_name": "com.revrag.targetapp",
+    "activity_name": "com.revrag.targetapp.LoginActivity",
+    "root": {
+      "class_name": "android.widget.FrameLayout",
+      "text": null,
+      "content_description": null,
+      "bounds": [0, 0, 1080, 2340],
+      "clickable": false,
+      "focusable": false,
+      "editable": false,
+      "enabled": true,
+      "selected": false,
+      "checked": null,
+      "children": [
+        {
+          "class_name": "android.widget.LinearLayout",
+          "text": null,
+          "content_description": null,
+          "bounds": [0, 0, 1080, 2340],
+          "clickable": false,
+          "focusable": false,
+          "editable": false,
+          "enabled": true,
+          "selected": false,
+          "checked": null,
+          "children": [
+            {
+              "class_name": "android.widget.ImageView",
+              "text": null,
+              "content_description": "App Logo",
+              "bounds": [340, 200, 740, 500],
+              "clickable": false,
+              "focusable": false,
+              "editable": false,
+              "enabled": true,
+              "selected": false,
+              "checked": null,
+              "children": []
+            },
+            {
+              "class_name": "android.widget.TextView",
+              "text": "Welcome to RevRag",
+              "content_description": null,
+              "bounds": [200, 550, 880, 620],
+              "clickable": false,
+              "focusable": false,
+              "editable": false,
+              "enabled": true,
+              "selected": false,
+              "checked": null,
+              "children": []
+            },
+            {
+              "class_name": "android.widget.EditText",
+              "text": "",
+              "content_description": "Phone number",
+              "bounds": [100, 700, 980, 800],
+              "clickable": true,
+              "focusable": true,
+              "editable": true,
+              "enabled": true,
+              "selected": false,
+              "checked": null,
+              "children": []
+            },
+            {
+              "class_name": "android.widget.Button",
+              "text": "Send OTP",
+              "content_description": null,
+              "bounds": [300, 870, 780, 960],
+              "clickable": true,
+              "focusable": true,
+              "editable": false,
+              "enabled": true,
+              "selected": false,
+              "checked": null,
+              "children": []
+            },
+            {
+              "class_name": "android.widget.TextView",
+              "text": "By continuing you agree to our Terms of Service",
+              "content_description": null,
+              "bounds": [150, 1020, 930, 1070],
+              "clickable": false,
+              "focusable": false,
+              "editable": false,
+              "enabled": true,
+              "selected": false,
+              "checked": null,
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "previous_state_id": null
+}
