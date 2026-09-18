@@ -8,7 +8,7 @@
  * @module main
  */
 
-import { loadKnowledgePack, loadKnowledgePackFromFile, getPackSource } from './data-loader.js';
+import { loadKnowledgePack, loadKnowledgePackFromFile, getPackSource, loadKnowledgePackFromAPI } from './data-loader.js';
 
 // ─── State ─────────────────────────────────────────────────────────
 /** @type {import('./data-loader.js').KnowledgePack | null} */
@@ -118,7 +118,11 @@ function renderApp() {
         <div class="stat-chip">
           <span class="stat-value">${formatBytes(meta.pack_size_bytes)}</span> size
         </div>` : ''}
-        <div class="header-actions" style="margin-left: 8px;">
+        <div class="header-actions" style="margin-left: 8px; display: flex; gap: 8px;">
+          <button class="btn-scan" id="btn-scan-app" aria-label="Scan App">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10"/></svg>
+            Scan App
+          </button>
           <label class="btn-upload" for="pack-upload-input" tabindex="0" role="button" aria-label="Upload Knowledge Pack">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
             Upload
@@ -175,6 +179,12 @@ function renderApp() {
     uploadInput.addEventListener('change', handleFileUpload);
   }
 
+  // Bind scan event
+  const scanBtn = document.getElementById('btn-scan-app');
+  if (scanBtn) {
+    scanBtn.addEventListener('click', handleScan);
+  }
+
   // Set initial state: select first screen (for sidebar highlight) and show App Map
   if (screens.length > 0) {
     selectedScreenId = screens[0].id;
@@ -220,6 +230,32 @@ async function handleFileUpload(e) {
   } finally {
     // Reset file input so the same file can be uploaded again if needed
     input.value = '';
+  }
+}
+
+// ─── Scan App Logic ────────────────────────────────────────────────
+async function handleScan() {
+  const backendUrl = prompt("Enter Orchestrator Backend URL:", localStorage.getItem('revrag_backend_url') || "http://localhost:8000");
+  if (!backendUrl) return;
+  localStorage.setItem('revrag_backend_url', backendUrl);
+
+  try {
+    const app = document.getElementById('app');
+    if (app) {
+      app.innerHTML = `
+        <div class="loading-state scan-loading-state">
+          <div class="scanning-scanner"></div>
+          <h2 style="margin-top: 20px; color: var(--text-color);">Scanning App...</h2>
+          <p style="color: var(--text-muted);">Please wait while the orchestrator explores the application.</p>
+        </div>
+      `;
+    }
+
+    pack = await loadKnowledgePackFromAPI({ baseUrl: backendUrl, simulate: true });
+    selectedScreenId = null;
+    renderApp();
+  } catch (err) {
+    renderError(err);
   }
 }
 

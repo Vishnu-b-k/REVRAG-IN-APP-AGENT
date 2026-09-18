@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: revrag-orchestrator
+    env: docker
+    region: oregon
+    plan: free
+    branch: main
+    dockerContext: .
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: DEBUG
+        value: "False"
+      - key: LLM_PROVIDER
+        value: "mock" # Set to "gemini" in Render dashboard for real runs
+      # Add GOOGLE_API_KEY directly in the Render dashboard, never commit it here.

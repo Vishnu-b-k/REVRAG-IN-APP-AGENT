@@ -138,9 +138,9 @@ class ExplorerAccessibilityService : AccessibilityService() {
             val observation = ObservationRequest(
                 sessionId = sessionId,
                 step = step,
-                screenshot_b64 = screenshotB64,
-                ui_tree = uiTree,
-                previous_state_id = previousStateId
+                screenshotB64 = screenshotB64,
+                uiTree = uiTree,
+                previousStateId = previousStateId
             )
 
             // 3. Post to backend
