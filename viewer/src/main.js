@@ -293,7 +293,7 @@ function renderAppMap() {
       <div class="app-map-header">
         <h1 class="detail-title">App Map</h1>
         <div class="detail-id">${screens.length} screens · ${transitions.length} transitions · ${(pack.journeys || []).length} journeys</div>
-        <div class="detail-purpose" style="margin-top: var(--space-3); padding: var(--space-3) var(--space-4);">
+        <div class="detail-purpose map-purpose">
           Click any screen node to view its full profile, elements, forms, and design tokens.
         </div>
       </div>
@@ -521,109 +521,76 @@ function renderScreenDetail(screen) {
 
   return `
     <div class="screen-detail" id="screen-detail">
-      <!-- Header -->
-      <div class="detail-header">
-        <h1 class="detail-title">${escapeHtml(screen.name)}</h1>
-        <div class="detail-id">${escapeHtml(screen.id)} · fingerprint: ${escapeHtml(screen.fingerprint || '—')}</div>
+      <!-- Hero -->
+      <div class="detail-hero">
+        <div class="detail-hero-content">
+          <h1 class="detail-title">${escapeHtml(screen.name)}</h1>
+          <div class="detail-id">${escapeHtml(screen.id)} · fingerprint: ${escapeHtml(screen.fingerprint || '—')}</div>
+        </div>
+        ${screen.purpose ? `<div class="detail-purpose">${escapeHtml(screen.purpose)}</div>` : ''}
       </div>
 
-      <!-- Purpose -->
-      <div class="detail-purpose">
-        <div class="detail-purpose-label">Purpose</div>
-        ${escapeHtml(screen.purpose || 'No purpose described.')}
+      <!-- Screenshot Presentation -->
+      <div class="screenshot-presentation">
+        ${renderScreenshot(screen)}
       </div>
 
-      <!-- Detail Grid -->
-      <div class="detail-grid">
-        <!-- Screenshot -->
-        <div class="section-card">
-          <div class="section-card-header">
-            <span class="section-card-title">Screenshot</span>
-          </div>
-          <div class="section-card-body">
-            ${renderScreenshot(screen)}
-          </div>
+      <!-- Elements -->
+      <div class="editorial-section">
+        <div class="editorial-section-title">
+          <span>Elements</span>
+          <span class="section-count-badge">${(screen.elements || []).length} recorded</span>
         </div>
-
-        <!-- Metadata -->
-        <div class="section-card">
-          <div class="section-card-header">
-            <span class="section-card-title">Screen Profile</span>
-          </div>
-          <div class="section-card-body">
-            ${renderScreenMetadata(screen)}
-          </div>
-        </div>
-
-        <!-- Elements -->
-        <div class="section-card full-width">
-          <div class="section-card-header">
-            <span class="section-card-title">Elements</span>
-            <span class="section-card-count">${(screen.elements || []).length}</span>
-          </div>
-          <div class="section-card-body">
-            ${renderElements(screen.elements)}
-          </div>
-        </div>
-
-        <!-- Forms -->
-        ${(screen.forms || []).length > 0 ? `
-        <div class="section-card full-width">
-          <div class="section-card-header">
-            <span class="section-card-title">Forms</span>
-            <span class="section-card-count">${screen.forms.length}</span>
-          </div>
-          <div class="section-card-body">
-            ${renderForms(screen.forms, screen.elements)}
-          </div>
-        </div>` : ''}
-
-        <!-- Transitions -->
-        ${(outgoing.length > 0 || incoming.length > 0) ? `
-        <div class="section-card full-width">
-          <div class="section-card-header">
-            <span class="section-card-title">Transitions</span>
-            <span class="section-card-count">${outgoing.length + incoming.length}</span>
-          </div>
-          <div class="section-card-body">
-            ${renderTransitions(outgoing, incoming, screen.id)}
-          </div>
-        </div>` : ''}
-
-        <!-- Journeys -->
-        ${journeys.length > 0 ? `
-        <div class="section-card full-width">
-          <div class="section-card-header">
-            <span class="section-card-title">Journeys</span>
-            <span class="section-card-count">${journeys.length}</span>
-          </div>
-          <div class="section-card-body">
-            ${renderJourneys(journeys, screen.id)}
-          </div>
-        </div>` : ''}
-
-        <!-- Design Tokens -->
-        ${screen.design_tokens && Object.keys(screen.design_tokens).length > 0 ? `
-        <div class="section-card full-width">
-          <div class="section-card-header">
-            <span class="section-card-title">Design Tokens</span>
-          </div>
-          <div class="section-card-body">
-            ${renderDesignTokens(screen.design_tokens)}
-          </div>
-        </div>` : ''}
-
-        <!-- Global Design System excerpt -->
-        ${pack?.global_design_system && Object.keys(pack.global_design_system).length > 0 ? `
-        <div class="section-card full-width">
-          <div class="section-card-header">
-            <span class="section-card-title">Global Design System</span>
-          </div>
-          <div class="section-card-body">
-            ${renderGlobalDesignSystem(pack.global_design_system)}
-          </div>
-        </div>` : ''}
+        ${renderElements(screen.elements)}
       </div>
+
+      <!-- Forms -->
+      ${(screen.forms || []).length > 0 ? `
+      <div class="editorial-section">
+        <div class="editorial-section-title">
+          <span>Forms</span>
+          <span class="section-count-badge">${screen.forms.length} recorded</span>
+        </div>
+        ${renderForms(screen.forms, screen.elements)}
+      </div>` : ''}
+
+      <!-- Transitions -->
+      ${(outgoing.length > 0 || incoming.length > 0) ? `
+      <div class="editorial-section">
+        <div class="editorial-section-title">
+          <span>Transitions</span>
+          <span class="section-count-badge">${outgoing.length + incoming.length} recorded</span>
+        </div>
+        ${renderTransitions(outgoing, incoming, screen.id)}
+      </div>` : ''}
+
+      <!-- Journeys -->
+      ${journeys.length > 0 ? `
+      <div class="editorial-section">
+        <div class="editorial-section-title">
+          <span>Journeys</span>
+          <span class="section-count-badge">${journeys.length} recorded</span>
+        </div>
+        ${renderJourneys(journeys, screen.id)}
+      </div>` : ''}
+
+      <!-- Design Tokens -->
+      ${screen.design_tokens && Object.keys(screen.design_tokens).length > 0 ? `
+      <div class="editorial-section">
+        <div class="editorial-section-title">
+          <span>Design Tokens</span>
+        </div>
+        ${renderDesignTokens(screen.design_tokens)}
+      </div>` : ''}
+
+      <!-- Global Design System -->
+      ${pack?.global_design_system && Object.keys(pack.global_design_system).length > 0 ? `
+      <div class="editorial-section">
+        <div class="editorial-section-title">
+          <span>Global Design System</span>
+        </div>
+        ${renderGlobalDesignSystem(pack.global_design_system)}
+      </div>` : ''}
     </div>
   `;
 }
@@ -633,25 +600,21 @@ function renderScreenDetail(screen) {
 function renderScreenshot(screen) {
   if (!screen.screenshot_url) {
     return `
-      <div class="screenshot-container">
-        <div class="screenshot-placeholder">
-          <div class="screenshot-placeholder-icon">🖼️</div>
-          <span>No screenshot available</span>
-        </div>
+      <div class="screenshot-placeholder">
+        <div class="screenshot-placeholder-icon">📷</div>
+        <span>No screenshot available</span>
       </div>
     `;
   }
 
   return `
-    <div class="screenshot-container">
-      <img
-        class="screenshot-img"
-        src="${escapeHtml(screen.screenshot_url)}"
-        alt="Screenshot of ${escapeHtml(screen.name)} screen"
-        loading="lazy"
-        onerror="this.parentElement.innerHTML='<div class=\\'screenshot-placeholder\\'><div class=\\'screenshot-placeholder-icon\\'>🖼️</div><span>Screenshot not found</span></div>'"
-      />
-    </div>
+    <img
+      class="screenshot-img"
+      src="${escapeHtml(screen.screenshot_url)}"
+      alt="Screenshot of ${escapeHtml(screen.name)}"
+      loading="lazy"
+      onerror="this.parentElement.innerHTML='<div class=\\'screenshot-placeholder\\'><div class=\\'screenshot-placeholder-icon\\'>📷</div><span>Screenshot not found</span></div>'"
+    />
   `;
 }
 
@@ -695,21 +658,16 @@ function renderElements(elements) {
   return `
     <ul class="element-list">
       ${elements.map(el => {
-        const boundsStr = (el.bounds && el.bounds.length === 4)
-          ? `${el.bounds[0]},${el.bounds[1]} ${el.bounds[2]}×${el.bounds[3]}`
-          : '';
-
         return `
         <li class="element-item">
-          <span class="element-role" data-role="${escapeHtml(el.role)}">${escapeHtml(el.role)}</span>
+          <div class="element-role-block" data-role="${escapeHtml(el.role)}">${escapeHtml(el.role)}</div>
           <div class="element-info">
             <div class="element-label">${escapeHtml(el.label)}</div>
             ${el.content_desc ? `<div class="element-desc">${escapeHtml(el.content_desc)}</div>` : ''}
             <div class="element-meta-row">
-              ${boundsStr ? `<span class="element-bounds" title="x,y w×h">${boundsStr}</span>` : ''}
-              <span class="element-id-tag">${escapeHtml(el.id)}</span>
+              <span class="element-tag">ID: ${escapeHtml(el.id)}</span>
               ${(el.actions || []).length > 0 ? el.actions.map(a =>
-                `<span class="element-action-tag">${escapeHtml(a)}</span>`
+                `<span class="element-tag action">${escapeHtml(a)}</span>`
               ).join('') : ''}
             </div>
           </div>
@@ -734,21 +692,23 @@ function renderForms(forms, elements) {
     return `
     <div class="form-item">
       <div class="form-name">${escapeHtml(form.name)}</div>
-      <div class="form-fields-section">
-        <div class="form-section-label">Fields</div>
-        <div class="form-field-chips">
-          ${fieldLabels.map(label => `<span class="form-field-chip">${escapeHtml(label)}</span>`).join('')}
+      <div class="form-row">
+        <div class="form-row-label">Fields</div>
+        <div class="form-row-content">
+          ${fieldLabels.map(label => `<span class="form-chip field">${escapeHtml(label)}</span>`).join('')}
         </div>
       </div>
-      <div class="form-submit-row">
-        <span class="form-section-label">Submit</span>
-        <span class="form-submit-chip">${escapeHtml(submitLabel)}</span>
+      <div class="form-row">
+        <div class="form-row-label">Submit</div>
+        <div class="form-row-content">
+          <span class="form-chip submit">${escapeHtml(submitLabel)}</span>
+        </div>
       </div>
       ${(form.validation_rules || []).length > 0 ? `
-      <div class="form-rules-section">
-        <span class="form-section-label">Validation</span>
-        <div class="form-rule-chips">
-          ${form.validation_rules.map(r => `<span class="form-rule-chip">${escapeHtml(r.replace(/_/g, ' '))}</span>`).join('')}
+      <div class="form-row">
+        <div class="form-row-label">Validation</div>
+        <div class="form-row-content">
+          ${form.validation_rules.map(r => `<span class="form-chip rule">${escapeHtml(r.replace(/_/g, ' '))}</span>`).join('')}
         </div>
       </div>` : ''}
     </div>`;
@@ -766,43 +726,29 @@ function renderTransitions(outgoing, incoming, currentScreenId) {
 
   if (outgoing.length > 0) {
     html += `
-      <div class="transition-group">
-        <div class="transition-group-label">Outgoing</div>
-        ${outgoing.map(t => `
-          <div class="transition-item" data-target-screen="${escapeHtml(t.to)}">
-            <div class="transition-flow">
-              <span class="transition-screen current">${escapeHtml(screenName(t.from))}</span>
-              <span class="transition-arrow-icon">→</span>
-              <span class="transition-screen target" data-navigate="${escapeHtml(t.to)}">${escapeHtml(screenName(t.to))}</span>
-            </div>
-            <div class="transition-action-info">
-              <span class="transition-action-type">${escapeHtml(t.action?.type || '—')}</span>
-              <span class="transition-action-label">${escapeHtml(t.action?.label || '')}</span>
-            </div>
+      ${outgoing.map(t => `
+        <div class="transition-item" data-target-screen="${escapeHtml(t.to)}">
+          <div class="transition-node source">${escapeHtml(screenName(t.from))}</div>
+          <div class="transition-action">
+            <span class="transition-action-badge">${escapeHtml(t.action?.label || t.action?.type || 'TAP')}</span>
           </div>
-        `).join('')}
-      </div>
+          <div class="transition-node destination" data-navigate="${escapeHtml(t.to)}">${escapeHtml(screenName(t.to))}</div>
+        </div>
+      `).join('')}
     `;
   }
 
   if (incoming.length > 0) {
     html += `
-      <div class="transition-group">
-        <div class="transition-group-label">Incoming</div>
-        ${incoming.map(t => `
-          <div class="transition-item" data-target-screen="${escapeHtml(t.from)}">
-            <div class="transition-flow">
-              <span class="transition-screen target" data-navigate="${escapeHtml(t.from)}">${escapeHtml(screenName(t.from))}</span>
-              <span class="transition-arrow-icon">→</span>
-              <span class="transition-screen current">${escapeHtml(screenName(t.to))}</span>
-            </div>
-            <div class="transition-action-info">
-              <span class="transition-action-type">${escapeHtml(t.action?.type || '—')}</span>
-              <span class="transition-action-label">${escapeHtml(t.action?.label || '')}</span>
-            </div>
+      ${incoming.map(t => `
+        <div class="transition-item" data-target-screen="${escapeHtml(t.from)}">
+          <div class="transition-node destination" data-navigate="${escapeHtml(t.from)}">${escapeHtml(screenName(t.from))}</div>
+          <div class="transition-action">
+            <span class="transition-action-badge">${escapeHtml(t.action?.label || t.action?.type || 'TAP')}</span>
           </div>
-        `).join('')}
-      </div>
+          <div class="transition-node source">${escapeHtml(screenName(t.to))}</div>
+        </div>
+      `).join('')}
     `;
   }
 
@@ -815,28 +761,21 @@ function renderTransitions(outgoing, incoming, currentScreenId) {
  * @param {string} currentScreenId
  */
 function renderJourneys(journeys, currentScreenId) {
-  return `
-    <div class="journey-list">
-      ${journeys.map(j => `
-        <div class="journey-item">
-          <div class="journey-header">
-            <span class="journey-name">${escapeHtml(j.name)}</span>
-            <span class="journey-step-count">${(j.steps || []).length} steps</span>
-          </div>
-          <div class="journey-desc">${escapeHtml(j.description || '')}</div>
-          <div class="journey-steps">
-            ${(j.steps || []).map((stepId, idx) => {
-              const isCurrent = stepId === currentScreenId;
-              return `
-                <span class="journey-step-chip ${isCurrent ? 'current' : ''}" data-screen-id="${escapeHtml(stepId)}">${escapeHtml(screenName(stepId))}</span>
-                ${idx < j.steps.length - 1 ? '<span class="journey-arrow">→</span>' : ''}
-              `;
-            }).join('')}
-          </div>
-        </div>
-      `).join('')}
+  return journeys.map(j => `
+    <div class="journey-item">
+      <div class="journey-name">${escapeHtml(j.name)}</div>
+      <div class="journey-desc">${escapeHtml(j.description || '')}</div>
+      <div class="journey-sequence">
+        ${(j.steps || []).map((stepId, idx) => {
+          const isCurrent = stepId === currentScreenId;
+          return `
+            <div class="journey-step ${isCurrent ? 'current' : ''}" data-screen-id="${escapeHtml(stepId)}">${escapeHtml(screenName(stepId))}</div>
+            ${idx < j.steps.length - 1 ? '<div class="journey-arrow">→</div>' : ''}
+          `;
+        }).join('')}
+      </div>
     </div>
-  `;
+  `).join('');
 }
 
 // ─── Render: Design Tokens ─────────────────────────────────────────
@@ -854,32 +793,30 @@ function renderDesignTokens(tokens) {
 
   if (colorEntries.length > 0) {
     html += `
-      <div class="token-section">
-        <div class="token-section-label">Colors</div>
-        <div class="token-color-grid">
-          ${colorEntries.map(([key, val]) => `
-            <div class="token-color-item">
-              <div class="token-color-swatch" style="background-color: ${val};" aria-label="${val}"></div>
-              <div class="token-color-info">
-                <div class="token-label">${escapeHtml(key.replace(/_/g, ' '))}</div>
-                <div class="token-value">${escapeHtml(val)}</div>
-              </div>
+      <div class="gds-section-title">Colors</div>
+      <div class="brand-grid" style="margin-bottom: var(--space-6);">
+        ${colorEntries.map(([key, val]) => `
+          <div class="brand-swatch-card">
+            <div class="brand-swatch-color" style="background-color: ${val};" aria-label="${val}"></div>
+            <div class="brand-swatch-info">
+              <div class="brand-swatch-name">${escapeHtml(key.replace(/_/g, ' '))}</div>
+              <div class="brand-swatch-hex">${escapeHtml(val)}</div>
             </div>
-          `).join('')}
-        </div>
+          </div>
+        `).join('')}
       </div>
     `;
   }
 
   if (otherEntries.length > 0) {
     html += `
-      <div class="token-section">
-        <div class="token-section-label">Properties</div>
-        <div class="token-props-grid">
+      <div class="gds-section">
+        <div class="gds-section-title">Properties</div>
+        <div class="gds-props-grid">
           ${otherEntries.map(([key, val]) => `
-            <div class="token-prop-item">
-              <div class="token-label">${escapeHtml(key.replace(/_/g, ' '))}</div>
-              <div class="token-value">${escapeHtml(String(val))}</div>
+            <div class="gds-prop-item">
+              <div class="gds-prop-label">${escapeHtml(key.replace(/_/g, ' '))}</div>
+              <div class="gds-prop-value">${escapeHtml(String(val))}</div>
             </div>
           `).join('')}
         </div>
@@ -902,25 +839,23 @@ function renderGlobalDesignSystem(gds) {
   const hasPalettes = palettes.some(p => Array.isArray(gds[p]) && gds[p].length > 0);
 
   if (hasPalettes) {
-    html += '<div class="gds-palettes">';
     palettes.forEach(pKey => {
       const colors = gds[pKey];
       if (!Array.isArray(colors) || colors.length === 0) return;
       html += `
-        <div class="gds-palette">
-          <div class="token-section-label">${escapeHtml(pKey.replace(/_/g, ' '))}</div>
-          <div class="gds-swatch-row">
-            ${colors.map(c => `
-              <div class="gds-swatch-item">
-                <div class="gds-swatch" style="background-color: ${escapeHtml(c)};"></div>
-                <div class="token-value">${escapeHtml(c)}</div>
+        <div class="gds-section-title">${escapeHtml(pKey.replace(/_/g, ' '))}</div>
+        <div class="brand-grid" style="margin-bottom: var(--space-6);">
+          ${colors.map(c => `
+            <div class="brand-swatch-card">
+              <div class="brand-swatch-color" style="background-color: ${escapeHtml(c)};"></div>
+              <div class="brand-swatch-info">
+                <div class="brand-swatch-hex">${escapeHtml(c)}</div>
               </div>
-            `).join('')}
-          </div>
+            </div>
+          `).join('')}
         </div>
       `;
     });
-    html += '</div>';
   }
 
   // Typography
@@ -928,12 +863,12 @@ function renderGlobalDesignSystem(gds) {
     const typo = gds.typography;
     html += `
       <div class="gds-section">
-        <div class="token-section-label">Typography</div>
-        <div class="gds-info-grid">
+        <div class="gds-section-title">Typography</div>
+        <div class="gds-props-grid">
           ${Object.entries(typo).map(([k, v]) => `
-            <div class="gds-info-item">
-              <div class="token-label">${escapeHtml(k.replace(/_/g, ' '))}</div>
-              <div class="token-value">${escapeHtml(String(v))}</div>
+            <div class="gds-prop-item">
+              <div class="gds-prop-label">${escapeHtml(k.replace(/_/g, ' '))}</div>
+              <div class="gds-prop-value">${escapeHtml(String(v))}</div>
             </div>
           `).join('')}
         </div>
@@ -946,17 +881,17 @@ function renderGlobalDesignSystem(gds) {
     const sp = gds.spacing;
     html += `
       <div class="gds-section">
-        <div class="token-section-label">Spacing</div>
-        <div class="gds-info-grid">
+        <div class="gds-section-title">Spacing</div>
+        <div class="gds-props-grid">
           ${sp.base_unit != null ? `
-          <div class="gds-info-item">
-            <div class="token-label">base unit</div>
-            <div class="token-value">${sp.base_unit}dp</div>
+          <div class="gds-prop-item">
+            <div class="gds-prop-label">base unit</div>
+            <div class="gds-prop-value">${sp.base_unit}dp</div>
           </div>` : ''}
           ${Array.isArray(sp.common_values) ? `
-          <div class="gds-info-item">
-            <div class="token-label">common values</div>
-            <div class="token-value">${sp.common_values.join(', ')}dp</div>
+          <div class="gds-prop-item">
+            <div class="gds-prop-label">common values</div>
+            <div class="gds-prop-value">${sp.common_values.join(', ')}dp</div>
           </div>` : ''}
         </div>
       </div>
@@ -970,12 +905,12 @@ function renderGlobalDesignSystem(gds) {
   if (extras.length > 0) {
     html += `
       <div class="gds-section">
-        <div class="token-section-label">Style</div>
-        <div class="gds-info-grid">
+        <div class="gds-section-title">Style</div>
+        <div class="gds-props-grid">
           ${extras.map(e => `
-            <div class="gds-info-item">
-              <div class="token-label">${escapeHtml(e.label)}</div>
-              <div class="token-value">${escapeHtml(e.value)}</div>
+            <div class="gds-prop-item">
+              <div class="gds-prop-label">${escapeHtml(e.label)}</div>
+              <div class="gds-prop-value">${escapeHtml(e.value)}</div>
             </div>
           `).join('')}
         </div>

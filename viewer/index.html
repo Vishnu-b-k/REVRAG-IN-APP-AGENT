@@ -1,23 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="RevRag Knowledge Pack Viewer — explore discovered app screens, transitions, and design tokens from autonomous exploration sessions." />
-  <title>RevRag Viewer — Knowledge Pack Explorer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/src/style.css" />
-</head>
-<body>
-  <div id="app">
-    <!-- App shell rendered by JS -->
-    <div id="loading-state" class="loading-state">
-      <div class="loading-spinner"></div>
-      <p>Loading Knowledge Pack…</p>
-    </div>
-  </div>
-  <script type="module" src="/src/main.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RevRag | In-App Agent</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/landing.css" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="nav-brand">REVRAG</div>
+      <div class="nav-links">
+        <a href="#pipeline" class="nav-link">Product</a>
+        <a href="#autonomous" class="nav-link">How it works</a>
+        <a href="#knowledge" class="nav-link">Knowledge Pack</a>
+      </div>
+      <a href="/viewer/" class="btn btn-secondary">Open Viewer</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+      <div class="hero-eyebrow">Rev Rag / In-App Agent</div>
+      <h1 class="hero-title">TURN AN APP<br>INTO KNOWLEDGE.</h1>
+      <p class="hero-subtitle">RevRag autonomously explores Android applications, understands their screens and interactions, and turns them into a structured, reusable Knowledge Pack.</p>
+      <div class="hero-actions">
+        <a href="/viewer/" class="btn btn-primary">Explore Knowledge</a>
+        <a href="#pipeline" class="btn btn-outline">See how it works</a>
+      </div>
+    </header>
+
+    <!-- Transformation Visual Blueprint -->
+    <section class="blueprint">
+      <h2 class="blueprint-title">THE TRANSFORMATION PIPELINE</h2>
+      <div class="blueprint-flow">
+        <div class="blueprint-node">ANDROID APP</div>
+        <div class="blueprint-arrow">
+          <span class="blueprint-arrow-label">Autonomy</span>
+          <span>↓</span>
+        </div>
+        <div class="blueprint-node highlight">AUTONOMOUS EXPLORATION</div>
+        <div class="blueprint-arrow">
+          <span class="blueprint-arrow-label">Extraction</span>
+          <span>↓</span>
+        </div>
+        <div class="blueprint-node">KNOWLEDGE PACK</div>
+        <div class="blueprint-arrow">
+          <span class="blueprint-arrow-label">Render</span>
+          <span>↓</span>
+        </div>
+        <div class="blueprint-node">REBUILD / VIEWER</div>
+      </div>
+    </section>
+
+    <!-- Pipeline Stages -->
+    <section id="pipeline" class="pipeline">
+      <div class="pipeline-stage">
+        <div class="stage-num">01</div>
+        <h3 class="stage-title">Explore</h3>
+        <p class="stage-desc">The Android application is observed completely autonomously by the agent.</p>
+      </div>
+      <div class="pipeline-stage">
+        <div class="stage-num">02</div>
+        <h3 class="stage-title">Understand</h3>
+        <p class="stage-desc">Screens, elements, forms, and user interactions are semantically interpreted.</p>
+      </div>
+      <div class="pipeline-stage">
+        <div class="stage-num">03</div>
+        <h3 class="stage-title">Structure</h3>
+        <p class="stage-desc">A stable, JSON-based Knowledge Pack is generated, cataloging the entire app.</p>
+      </div>
+      <div class="pipeline-stage">
+        <div class="stage-num">04</div>
+        <h3 class="stage-title">Visualize</h3>
+        <p class="stage-desc">The discovered application becomes an interactive map and a detailed screen profile.</p>
+      </div>
+      <div class="pipeline-stage">
+        <div class="stage-num">05</div>
+        <h3 class="stage-title">Rebuild</h3>
+        <p class="stage-desc">Selected screens can be reconstructed dynamically from the pure Knowledge Pack data.</p>
+      </div>
+    </section>
+
+    <!-- Autonomous Section -->
+    <section id="autonomous" class="autonomous">
+      <div class="autonomous-content">
+        <h2>NO MANUAL FLOW RECORDING.</h2>
+        <p>The system observes, decides, validates, executes, and continues through the exploration frontier entirely on its own.</p>
+        <span class="badge-warning">100% Autonomous</span>
+      </div>
+      <div class="autonomous-loop">
+        <div class="loop-item">1. OBSERVE SCREEN STATE</div>
+        <div class="loop-item">2. IDENTIFY INTERACTIVE ELEMENTS</div>
+        <div class="loop-item active">3. DECIDE NEXT ACTION</div>
+        <div class="loop-item">4. EXECUTE & VALIDATE</div>
+        <div class="loop-item">5. UPDATE KNOWLEDGE GRAPH</div>
+        <div class="loop-item">↻ REPEAT FRONTIER LOOP</div>
+      </div>
+    </section>
+
+    <!-- Knowledge Pack Section -->
+    <section id="knowledge" class="kp-section">
+      <div class="kp-header">
+        <h2>THE OUTPUT ISN'T A SCREENSHOT.</h2>
+        <p>The system produces structured application knowledge. A semantic specification of what the app is and how it works.</p>
+      </div>
+      <div class="kp-grid">
+        <div class="kp-block">
+          <div class="kp-block-title">Screens</div>
+          <div class="kp-block-mono">Array&lt;ScreenNode&gt;</div>
+          <div class="kp-block-desc">Stable identities for every discovered visual state.</div>
+        </div>
+        <div class="kp-block">
+          <div class="kp-block-title">Elements</div>
+          <div class="kp-block-mono">Array&lt;UIElement&gt;</div>
+          <div class="kp-block-desc">Semantic roles, bounds, actions, and content descriptions.</div>
+        </div>
+        <div class="kp-block">
+          <div class="kp-block-title">Forms</div>
+          <div class="kp-block-mono">Map&lt;FormState&gt;</div>
+          <div class="kp-block-desc">Linked input fields, submission buttons, and validation rules.</div>
+        </div>
+        <div class="kp-block">
+          <div class="kp-block-title">Transitions</div>
+          <div class="kp-block-mono">GraphEdges</div>
+          <div class="kp-block-desc">Directional mappings of how actions lead from one screen to another.</div>
+        </div>
+        <div class="kp-block">
+          <div class="kp-block-title">Journeys</div>
+          <div class="kp-block-mono">Array&lt;FlowSequence&gt;</div>
+          <div class="kp-block-desc">Identified end-to-end user flows like login, checkout, or KYC.</div>
+        </div>
+        <div class="kp-block">
+          <div class="kp-block-title">Design Tokens</div>
+          <div class="kp-block-mono">StyleObject</div>
+          <div class="kp-block-desc">Extracted color palettes, typography scales, and spacing units.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Differentiator / Rebuild -->
+    <section class="differentiator">
+      <h2 class="diff-title">IT DOESN'T JUST SEE THE SCREEN.<br>IT UNDERSTANDS THE APP.</h2>
+      <div class="rebuild-flow">
+        <div class="rebuild-box" style="color: var(--color-orange); background: var(--color-white);">ORIGINAL APP</div>
+        <div class="rebuild-arrow">→</div>
+        <div class="rebuild-box" style="color: var(--color-honey); border-color: var(--color-black);">KNOWLEDGE PACK</div>
+        <div class="rebuild-arrow">→</div>
+        <div class="rebuild-box" style="color: var(--color-orange); background: var(--color-white);">RECONSTRUCTED SCREEN</div>
+      </div>
+      <p style="font-size: 24px; font-weight: 700; max-width: 800px; margin: 0 auto; line-height: 1.5;">
+        The reconstruction stage uses pure Knowledge Pack data—not the original pixels—to rebuild a functional layout.
+      </p>
+    </section>
+
+    <!-- Viewer Preview -->
+    <section class="preview-section">
+      <h2 class="preview-title">SEE WHAT THE AGENT DISCOVERED.</h2>
+      <div class="preview-grid">
+        <img src="/screenshots/scr_dashboard.jpg" alt="Dashboard Screen Preview" class="preview-img">
+        <img src="/screenshots/scr_feed.jpg" alt="Feed Screen Preview" class="preview-img">
+        <img src="/screenshots/scr_profile.jpg" alt="Profile Screen Preview" class="preview-img">
+        <img src="/screenshots/scr_details.jpg" alt="Details Screen Preview" class="preview-img">
+      </div>
+      <a href="/viewer/" class="btn btn-primary" style="font-size: 24px; padding: 24px 48px;">Explore The Viewer</a>
+    </section>
+
+    <!-- Final CTA -->
+    <footer class="final-cta">
+      <div class="final-words">
+        EXPLORE.<br>
+        UNDERSTAND.<br>
+        REBUILD.
+      </div>
+      <a href="/viewer/" class="btn btn-primary" style="font-size: 32px; padding: 24px 64px;">Open Viewer</a>
+    </footer>
+
+  </body>
 </html>
