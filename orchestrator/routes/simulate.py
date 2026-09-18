@@ -151,6 +151,12 @@ async def run_simulation():
         
     pack = finalize_pack(session)
     
+    # Patch screenshot URLs for the simulation demo
+    for screen in pack.screens:
+        # Use placehold.co with our skill.md color palette (Dynamic Black bg, Apocalyptic Orange text)
+        text = screen.name.replace(" ", "+")
+        screen.screenshot_url = f"https://placehold.co/1080x2340/151314/DF5E39?text={text}"
+    
     return SimulationResponse(
         session_id=session_id,
         total_steps=len(steps_res),
