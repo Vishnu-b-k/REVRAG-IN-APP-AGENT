@@ -1,0 +1,466 @@
+{
+  "schema_version": "1.0",
+  "app_metadata": {
+    "app_name": "RevRag Demo App",
+    "package_name": "com.revrag.demo",
+    "version": "1.0.0",
+    "platform": "android",
+    "target_sdk": 33
+  },
+  "screens": [
+    {
+      "id": "scr_01",
+      "fingerprint": "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4",
+      "name": "Login",
+      "purpose": "Authenticates the user with email and password credentials. Entry point after the splash screen.",
+      "screenshot_url": "/screenshots/scr_login.jpg",
+      "elements": [
+        {
+          "id": "el_01",
+          "role": "text_input",
+          "label": "Email Address",
+          "bounds": [40, 420, 320, 56],
+          "actions": ["type_text"],
+          "content_desc": "Enter your email address"
+        },
+        {
+          "id": "el_02",
+          "role": "text_input",
+          "label": "Password",
+          "bounds": [40, 500, 320, 56],
+          "actions": ["type_text"],
+          "content_desc": "Enter your password"
+        },
+        {
+          "id": "el_03",
+          "role": "button",
+          "label": "Continue",
+          "bounds": [40, 600, 320, 48],
+          "actions": ["tap"],
+          "content_desc": "Log in to your account"
+        },
+        {
+          "id": "el_04",
+          "role": "link",
+          "label": "Forgot Password?",
+          "bounds": [200, 560, 160, 24],
+          "actions": ["tap"],
+          "content_desc": "Reset your password"
+        }
+      ],
+      "forms": [
+        {
+          "id": "form_login",
+          "name": "Login Form",
+          "fields": ["el_01", "el_02"],
+          "submit_button": "el_03",
+          "validation_rules": ["email_format", "password_required"]
+        }
+      ],
+      "design_tokens": {
+        "background_color": "#0a1628",
+        "primary_color": "#2196f3",
+        "text_color": "#ffffff",
+        "mode": "dark"
+      }
+    },
+    {
+      "id": "scr_02",
+      "fingerprint": "b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5",
+      "name": "Dashboard",
+      "purpose": "Main hub after login. Shows account balance, quick actions, and navigation to Feed, Profile, and KYC sections.",
+      "screenshot_url": "/screenshots/scr_dashboard.jpg",
+      "elements": [
+        {
+          "id": "el_05",
+          "role": "text",
+          "label": "Hello, Test User",
+          "bounds": [16, 80, 280, 32],
+          "actions": [],
+          "content_desc": "Greeting message"
+        },
+        {
+          "id": "el_06",
+          "role": "card",
+          "label": "Total Balance: $12,450.00",
+          "bounds": [16, 160, 368, 180],
+          "actions": ["tap"],
+          "content_desc": "Account balance card"
+        },
+        {
+          "id": "el_07",
+          "role": "button",
+          "label": "Feed",
+          "bounds": [16, 380, 112, 100],
+          "actions": ["tap"],
+          "content_desc": "Navigate to activity feed"
+        },
+        {
+          "id": "el_08",
+          "role": "button",
+          "label": "Profile",
+          "bounds": [144, 380, 112, 100],
+          "actions": ["tap"],
+          "content_desc": "Navigate to user profile"
+        },
+        {
+          "id": "el_09",
+          "role": "button",
+          "label": "KYC",
+          "bounds": [272, 380, 112, 100],
+          "actions": ["tap"],
+          "content_desc": "Navigate to KYC verification"
+        },
+        {
+          "id": "el_10",
+          "role": "navigation_bar",
+          "label": "Bottom Navigation",
+          "bounds": [0, 720, 400, 56],
+          "actions": ["tap"],
+          "content_desc": "Home, Analytics, Payments, Cards, Settings"
+        }
+      ],
+      "forms": [],
+      "design_tokens": {
+        "background_color": "#0d0d0d",
+        "primary_color": "#2196f3",
+        "accent_color": "#1565c0",
+        "text_color": "#ffffff",
+        "mode": "dark"
+      }
+    },
+    {
+      "id": "scr_03",
+      "fingerprint": "c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6",
+      "name": "Feed",
+      "purpose": "Scrollable activity feed showing recent transactions and account events. Supports filtering and detail navigation.",
+      "screenshot_url": "/screenshots/scr_feed.jpg",
+      "elements": [
+        {
+          "id": "el_11",
+          "role": "text",
+          "label": "Activity Feed",
+          "bounds": [16, 48, 200, 32],
+          "actions": [],
+          "content_desc": "Screen title"
+        },
+        {
+          "id": "el_12",
+          "role": "button",
+          "label": "Filter",
+          "bounds": [340, 48, 40, 40],
+          "actions": ["tap"],
+          "content_desc": "Filter transactions"
+        },
+        {
+          "id": "el_13",
+          "role": "list",
+          "label": "Transaction List",
+          "bounds": [16, 100, 368, 620],
+          "actions": ["scroll"],
+          "content_desc": "Scrollable list of recent transactions"
+        },
+        {
+          "id": "el_14",
+          "role": "list_item",
+          "label": "Netflix Premium — -$15.99",
+          "bounds": [16, 110, 368, 80],
+          "actions": ["tap"],
+          "content_desc": "Transaction entry"
+        },
+        {
+          "id": "el_15",
+          "role": "list_item",
+          "label": "Salary - Acme Corp — +$3,450.00",
+          "bounds": [16, 310, 368, 80],
+          "actions": ["tap"],
+          "content_desc": "Transaction entry"
+        }
+      ],
+      "forms": [],
+      "design_tokens": {
+        "background_color": "#0d0d0d",
+        "primary_color": "#2196f3",
+        "text_color": "#ffffff",
+        "negative_color": "#ef5350",
+        "positive_color": "#66bb6a",
+        "mode": "dark"
+      }
+    },
+    {
+      "id": "scr_04",
+      "fingerprint": "d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1",
+      "name": "Profile",
+      "purpose": "Displays and allows editing of user profile information including name, email, and phone number.",
+      "screenshot_url": "/screenshots/scr_profile.jpg",
+      "elements": [
+        {
+          "id": "el_16",
+          "role": "image",
+          "label": "User Avatar",
+          "bounds": [140, 100, 120, 120],
+          "actions": ["tap"],
+          "content_desc": "Profile picture with initials TU"
+        },
+        {
+          "id": "el_17",
+          "role": "text_input",
+          "label": "Full Name",
+          "bounds": [24, 280, 352, 56],
+          "actions": ["type_text"],
+          "content_desc": "User full name field"
+        },
+        {
+          "id": "el_18",
+          "role": "text_input",
+          "label": "Email Address",
+          "bounds": [24, 356, 352, 56],
+          "actions": ["type_text"],
+          "content_desc": "User email field"
+        },
+        {
+          "id": "el_19",
+          "role": "text_input",
+          "label": "Phone Number",
+          "bounds": [24, 432, 352, 56],
+          "actions": ["type_text"],
+          "content_desc": "User phone number field"
+        },
+        {
+          "id": "el_20",
+          "role": "button",
+          "label": "Save Changes",
+          "bounds": [200, 700, 176, 44],
+          "actions": ["tap"],
+          "content_desc": "Save profile changes"
+        },
+        {
+          "id": "el_21",
+          "role": "button",
+          "label": "Cancel",
+          "bounds": [24, 700, 160, 44],
+          "actions": ["tap"],
+          "content_desc": "Discard profile changes"
+        }
+      ],
+      "forms": [
+        {
+          "id": "form_profile",
+          "name": "Profile Edit Form",
+          "fields": ["el_17", "el_18", "el_19"],
+          "submit_button": "el_20",
+          "validation_rules": ["name_required", "email_format", "phone_format"]
+        }
+      ],
+      "design_tokens": {
+        "background_color": "#1a1a2e",
+        "primary_color": "#00e676",
+        "text_color": "#ffffff",
+        "mode": "dark"
+      }
+    },
+    {
+      "id": "scr_05",
+      "fingerprint": "e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2",
+      "name": "KYC Form",
+      "purpose": "Collects identity verification data including full name, date of birth, account type, and ID number for regulatory compliance.",
+      "screenshot_url": "/screenshots/scr_kyc.jpg",
+      "elements": [
+        {
+          "id": "el_22",
+          "role": "text",
+          "label": "KYC Verification",
+          "bounds": [60, 48, 280, 32],
+          "actions": [],
+          "content_desc": "Screen title"
+        },
+        {
+          "id": "el_23",
+          "role": "progress_bar",
+          "label": "Step 1 of 2",
+          "bounds": [40, 100, 320, 8],
+          "actions": [],
+          "content_desc": "Form progress indicator"
+        },
+        {
+          "id": "el_24",
+          "role": "text_input",
+          "label": "Full Name",
+          "bounds": [40, 200, 320, 56],
+          "actions": ["type_text"],
+          "content_desc": "Legal full name"
+        },
+        {
+          "id": "el_25",
+          "role": "date_picker",
+          "label": "Date of Birth",
+          "bounds": [40, 280, 320, 56],
+          "actions": ["tap"],
+          "content_desc": "Select date of birth"
+        },
+        {
+          "id": "el_26",
+          "role": "dropdown",
+          "label": "Account Type",
+          "bounds": [40, 360, 320, 56],
+          "actions": ["tap"],
+          "content_desc": "Select account type: Personal Savings, Business, etc."
+        },
+        {
+          "id": "el_27",
+          "role": "text_input",
+          "label": "ID Number",
+          "bounds": [40, 440, 320, 56],
+          "actions": ["type_text"],
+          "content_desc": "Government-issued ID number"
+        },
+        {
+          "id": "el_28",
+          "role": "button",
+          "label": "Submit",
+          "bounds": [40, 560, 320, 48],
+          "actions": ["tap"],
+          "content_desc": "Submit KYC information"
+        }
+      ],
+      "forms": [
+        {
+          "id": "form_kyc",
+          "name": "KYC Verification Form",
+          "fields": ["el_24", "el_25", "el_26", "el_27"],
+          "submit_button": "el_28",
+          "validation_rules": ["name_required", "dob_required", "account_type_required", "id_number_format"]
+        }
+      ],
+      "design_tokens": {
+        "background_color": "#0a1628",
+        "primary_color": "#00bcd4",
+        "accent_color": "#2196f3",
+        "text_color": "#ffffff",
+        "mode": "dark"
+      }
+    },
+    {
+      "id": "scr_06",
+      "fingerprint": "f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3",
+      "name": "Details",
+      "purpose": "Shows full details of a selected transaction including amount, date, category, reference number, and status.",
+      "screenshot_url": "/screenshots/scr_details.jpg",
+      "elements": [
+        {
+          "id": "el_29",
+          "role": "button",
+          "label": "Back",
+          "bounds": [16, 48, 40, 40],
+          "actions": ["tap"],
+          "content_desc": "Navigate back"
+        },
+        {
+          "id": "el_30",
+          "role": "text",
+          "label": "Transaction Details",
+          "bounds": [72, 48, 256, 32],
+          "actions": [],
+          "content_desc": "Screen title"
+        },
+        {
+          "id": "el_31",
+          "role": "card",
+          "label": "Salary - Acme Corp: +$3,450.00",
+          "bounds": [16, 120, 368, 260],
+          "actions": [],
+          "content_desc": "Transaction summary card"
+        },
+        {
+          "id": "el_32",
+          "role": "text",
+          "label": "Status: Completed",
+          "bounds": [260, 130, 120, 28],
+          "actions": [],
+          "content_desc": "Transaction status badge"
+        },
+        {
+          "id": "el_33",
+          "role": "text",
+          "label": "Reference: ACME87234190B",
+          "bounds": [32, 340, 336, 20],
+          "actions": [],
+          "content_desc": "Transaction reference number"
+        },
+        {
+          "id": "el_34",
+          "role": "navigation_bar",
+          "label": "Bottom Navigation",
+          "bounds": [0, 720, 400, 56],
+          "actions": ["tap"],
+          "content_desc": "Home, Transactions, Search, More"
+        }
+      ],
+      "forms": [],
+      "design_tokens": {
+        "background_color": "#1a1a1a",
+        "primary_color": "#66bb6a",
+        "text_color": "#ffffff",
+        "mode": "dark"
+      }
+    }
+  ],
+  "transitions": [
+    { "from": "scr_01", "to": "scr_02", "action": { "type": "tap", "target": "el_03", "label": "Continue button after login" } },
+    { "from": "scr_02", "to": "scr_03", "action": { "type": "tap", "target": "el_07", "label": "Feed navigation card" } },
+    { "from": "scr_02", "to": "scr_04", "action": { "type": "tap", "target": "el_08", "label": "Profile navigation card" } },
+    { "from": "scr_02", "to": "scr_05", "action": { "type": "tap", "target": "el_09", "label": "KYC navigation card" } },
+    { "from": "scr_03", "to": "scr_06", "action": { "type": "tap", "target": "el_15", "label": "Transaction list item tap" } },
+    { "from": "scr_06", "to": "scr_03", "action": { "type": "tap", "target": "el_29", "label": "Back button" } },
+    { "from": "scr_04", "to": "scr_02", "action": { "type": "tap", "target": "el_21", "label": "Cancel / Back" } },
+    { "from": "scr_05", "to": "scr_02", "action": { "type": "back", "target": null, "label": "System back from KYC" } }
+  ],
+  "journeys": [
+    {
+      "id": "journey_01",
+      "name": "Login Flow",
+      "description": "User authenticates and reaches the dashboard",
+      "steps": ["scr_01", "scr_02"]
+    },
+    {
+      "id": "journey_02",
+      "name": "View Transaction Details",
+      "description": "User navigates from dashboard to feed and views a transaction detail",
+      "steps": ["scr_02", "scr_03", "scr_06"]
+    },
+    {
+      "id": "journey_03",
+      "name": "KYC Verification",
+      "description": "User navigates to KYC form and submits identity verification",
+      "steps": ["scr_02", "scr_05"]
+    }
+  ],
+  "global_design_system": {
+    "primary_palette": ["#2196f3", "#1565c0", "#0a1628"],
+    "accent_palette": ["#00e676", "#00bcd4"],
+    "neutral_palette": ["#0d0d0d", "#1a1a1a", "#1a1a2e", "#ffffff"],
+    "typography": {
+      "font_family": "System default (Roboto)",
+      "heading_style": "Bold, 20-24sp",
+      "body_style": "Regular, 14-16sp",
+      "caption_style": "Regular, 12sp"
+    },
+    "spacing": {
+      "base_unit": 8,
+      "common_values": [8, 16, 24, 32, 40]
+    },
+    "mode": "dark",
+    "tone": "Professional fintech"
+  },
+  "scan_metadata": {
+    "session_id": "demo_session_001",
+    "started_at": "2024-10-27T10:00:00Z",
+    "completed_at": "2024-10-27T10:05:32Z",
+    "total_steps": 24,
+    "screens_discovered": 6,
+    "transitions_recorded": 8,
+    "duplicates_merged": 2,
+    "exploration_status": "completed",
+    "pack_size_bytes": 4096
+  }
+}
