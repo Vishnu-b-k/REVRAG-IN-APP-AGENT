@@ -151,17 +151,17 @@ async def run_simulation():
         
     pack = finalize_pack(session)
     
-    # Patch screenshot URLs — map screen IDs to actual app screenshots
-    # These images are served from viewer/public/screenshots/ on the Vercel deployment
+    # Patch screenshot URLs — map screen IDs to actual Target App screenshots
+    # These are real renders of the android-explorer Compose screens
     SCREENSHOT_MAP = {
-        "scr_6edf4f0a": "/screenshots/scr_login.jpg",      # LoginActivity
-        "scr_d2988000": "/screenshots/scr_login.jpg",       # OTPActivity (closest match)
-        "scr_8ecc448b": "/screenshots/scr_dashboard.jpg",   # DashboardActivity
-        "scr_dc2459da": "/screenshots/scr_profile.jpg",     # ProfileActivity
-        "scr_6c94648c": "/screenshots/scr_details.jpg",     # SettingsActivity
+        "scr_6edf4f0a": "/screenshots/scr_login_app.jpg",      # LoginActivity
+        "scr_d2988000": "/screenshots/scr_otp_app.jpg",         # OTPActivity
+        "scr_8ecc448b": "/screenshots/scr_dashboard_app.jpg",   # DashboardActivity
+        "scr_dc2459da": "/screenshots/scr_profile_app.jpg",     # ProfileActivity
+        "scr_6c94648c": "/screenshots/scr_settings_app.jpg",    # SettingsActivity
     }
     for screen in pack.screens:
-        screen.screenshot_url = SCREENSHOT_MAP.get(screen.id, "/screenshots/scr_dashboard.jpg")
+        screen.screenshot_url = SCREENSHOT_MAP.get(screen.id, "/screenshots/scr_dashboard_app.jpg")
     
     return SimulationResponse(
         session_id=session_id,
