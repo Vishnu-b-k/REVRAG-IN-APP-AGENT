@@ -1,0 +1,150 @@
+{
+  "id": "scr_dash_03",
+  "fingerprint": "c3d4e5f6a7b8c9d0",
+  "name": "Main dashboard",
+  "purpose": "Main dashboard showing key app sections and notifications. Contains a header with the title, a notifications area, and navigation buttons for Feed, Profile, KYC Form, and Settings.",
+  "screenshot_url": "screenshots/dashboard.png",
+  "elements": [
+    {"id": "el_20", "role": "label", "label": "Dashboard", "bounds": [50, 50, 400, 110], "actions": []},
+    {"id": "el_21", "role": "label", "label": "Notifications", "bounds": [50, 150, 400, 210], "actions": []},
+    {"id": "el_22", "role": "button", "label": "View Feed", "bounds": [50, 300, 520, 390], "actions": ["tap"]},
+    {"id": "el_23", "role": "button", "label": "Profile", "bounds": [560, 300, 1030, 390], "actions": ["tap"]},
+    {"id": "el_24", "role": "button", "label": "KYC Form", "bounds": [50, 450, 520, 540], "actions": ["tap"]},
+    {"id": "el_25", "role": "button", "label": "Settings", "bounds": [560, 450, 1030, 540], "actions": ["tap"]}
+  ],
+  "forms": [],
+  "design_tokens": {
+    "dominant_colors": [],
+    "background_color": null,
+    "foreground_color": null,
+    "font_styles": [],
+    "spacing_pattern": null,
+    "component_types": ["button", "label"],
+    "mode": null,
+    "tone": null
+  },
+  "ui_tree": {
+    "package_name": "com.revrag.targetapp",
+    "activity_name": "com.revrag.targetapp.DashboardActivity",
+    "root": {
+      "class_name": "android.widget.FrameLayout",
+      "text": null,
+      "content_description": null,
+      "bounds": [0, 0, 1080, 2340],
+      "clickable": false,
+      "focusable": false,
+      "editable": false,
+      "enabled": true,
+      "selected": false,
+      "checked": null,
+      "children": [
+        {
+          "class_name": "android.widget.LinearLayout",
+          "text": null,
+          "content_description": null,
+          "bounds": [0, 0, 1080, 2340],
+          "clickable": false,
+          "focusable": false,
+          "editable": false,
+          "enabled": true,
+          "selected": false,
+          "checked": null,
+          "children": [
+            {
+              "class_name": "android.widget.TextView",
+              "text": "Dashboard",
+              "content_description": null,
+              "bounds": [50, 50, 400, 110],
+              "clickable": false,
+              "focusable": false,
+              "editable": false,
+              "enabled": true,
+              "selected": false,
+              "checked": null,
+              "children": []
+            },
+            {
+              "class_name": "android.widget.TextView",
+              "text": "Notifications",
+              "content_description": null,
+              "bounds": [50, 150, 400, 210],
+              "clickable": false,
+              "focusable": false,
+              "editable": false,
+              "enabled": true,
+              "selected": false,
+              "checked": null,
+              "children": []
+            },
+            {
+              "class_name": "android.widget.LinearLayout",
+              "text": null,
+              "content_description": null,
+              "bounds": [50, 280, 1030, 560],
+              "clickable": false,
+              "focusable": false,
+              "editable": false,
+              "enabled": true,
+              "selected": false,
+              "checked": null,
+              "children": [
+                {
+                  "class_name": "android.widget.Button",
+                  "text": "View Feed",
+                  "content_description": null,
+                  "bounds": [50, 300, 520, 390],
+                  "clickable": true,
+                  "focusable": true,
+                  "editable": false,
+                  "enabled": true,
+                  "selected": false,
+                  "checked": null,
+                  "children": []
+                },
+                {
+                  "class_name": "android.widget.Button",
+                  "text": "Profile",
+                  "content_description": null,
+                  "bounds": [560, 300, 1030, 390],
+                  "clickable": true,
+                  "focusable": true,
+                  "editable": false,
+                  "enabled": true,
+                  "selected": false,
+                  "checked": null,
+                  "children": []
+                },
+                {
+                  "class_name": "android.widget.Button",
+                  "text": "KYC Form",
+                  "content_description": null,
+                  "bounds": [50, 450, 520, 540],
+                  "clickable": true,
+                  "focusable": true,
+                  "editable": false,
+                  "enabled": true,
+                  "selected": false,
+                  "checked": null,
+                  "children": []
+                },
+                {
+                  "class_name": "android.widget.Button",
+                  "text": "Settings",
+                  "content_description": null,
+                  "bounds": [560, 450, 1030, 540],
+                  "clickable": true,
+                  "focusable": true,
+                  "editable": false,
+                  "enabled": true,
+                  "selected": false,
+                  "checked": null,
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "id": "scr_profile_04",
+  "fingerprint": "d4e5f6a7b8c9d0e1",
+  "name": "User profile",
+  "purpose": "User profile screen with personal information",
+  "screenshot_url": "screenshots/profile.png",
+  "elements": [
+    {
+      "id": "el_30",
+      "role": "image",
+      "label": "Profile Photo",
+      "bounds": [
+        340,
+        100,
+        740,
+        500
+      ],
+      "actions": []
+    },
+    {
+      "id": "el_31",
+      "role": "label",
+      "label": "User Name",
+      "bounds": [
+        200,
+        550,
+        880,
+        620
+      ],
+      "actions": []
+    },
+    {
+      "id": "el_32",
+      "role": "label",
+      "label": "Email",
+      "bounds": [
+        200,
+        650,
+        880,
+        710
+      ],
+      "actions": []
+    },
+    {
+      "id": "el_33",
+      "role": "button",
+      "label": "Edit Profile",
+      "bounds": [
+        300,
+        800,
+        780,
+        890
+      ],
+      "actions": [
+        "tap"
+      ]
+    }
+  ],
+  "forms": [],
+  "design_tokens": {
+    "dominant_colors": [
+      "#FFFFFF",
+      "#1976D2",
+      "#424242"
+    ],
+    "background_color": "#FFFFFF",
+    "foreground_color": "#212121",
+    "font_styles": [
+      "heading: ~286sp (h=400px, e.g. \"Profile Photo\")",
+      "heading: ~64sp (h=90px, e.g. \"Edit Profile\")",
+      "heading: ~50sp (h=70px, e.g. \"User Name\")",
+      "heading: ~43sp (h=60px, e.g. \"Email\")"
+    ],
+    "spacing_pattern": "structured",
+    "spacing_details": {
+      "common_gaps": [
+        "50px",
+        "30px",
+        "90px"
+      ],
+      "vertical_gaps": [
+        "30px",
+        "50px",
+        "90px"
+      ],
+      "horizontal_gaps": [],
+      "margins": {
+        "estimated_left": "200px",
+        "estimated_top": "100px"
+      }
+    },
+    "layout": {
+      "type": "two_column_grid",
+      "columns": 2,
+      "alignment": "center",
+      "content_area": {
+        "left": "200px",
+        "top": "100px",
+        "right": "880px",
+        "bottom": "890px"
+      }
+    },
+    "component_types": [
+      "button",
+      "image",
+      "label"
+    ],
+    "mode": "light",
+    "tone": "utilitarian"
+  }
+}

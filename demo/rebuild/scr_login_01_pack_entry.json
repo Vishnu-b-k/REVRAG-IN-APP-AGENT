@@ -1,0 +1,136 @@
+{
+  "id": "scr_login_01",
+  "fingerprint": "a1b2c3d4e5f6a7b8",
+  "name": "User authentication",
+  "purpose": "User authentication / login screen with phone OTP",
+  "screenshot_url": "screenshots/login.png",
+  "elements": [
+    {
+      "id": "el_00",
+      "role": "image",
+      "label": "App Logo",
+      "bounds": [
+        340,
+        200,
+        740,
+        500
+      ],
+      "actions": []
+    },
+    {
+      "id": "el_01",
+      "role": "label",
+      "label": "Welcome to RevRag",
+      "bounds": [
+        200,
+        550,
+        880,
+        620
+      ],
+      "actions": []
+    },
+    {
+      "id": "el_02",
+      "role": "text_input",
+      "label": "Phone number",
+      "bounds": [
+        100,
+        700,
+        980,
+        800
+      ],
+      "actions": [
+        "type_text"
+      ]
+    },
+    {
+      "id": "el_03",
+      "role": "button",
+      "label": "Send OTP",
+      "bounds": [
+        300,
+        870,
+        780,
+        960
+      ],
+      "actions": [
+        "tap"
+      ]
+    },
+    {
+      "id": "el_04",
+      "role": "label",
+      "label": "Terms of Service",
+      "bounds": [
+        150,
+        1020,
+        930,
+        1070
+      ],
+      "actions": []
+    }
+  ],
+  "forms": [
+    {
+      "id": "el_02",
+      "label": "Phone number",
+      "input_type": "text",
+      "required": true
+    }
+  ],
+  "design_tokens": {
+    "dominant_colors": [
+      "#FFFFFF",
+      "#1976D2",
+      "#424242"
+    ],
+    "background_color": "#FFFFFF",
+    "foreground_color": "#212121",
+    "font_styles": [
+      "heading: ~214sp (h=300px, e.g. \"App Logo\")",
+      "heading: ~71sp (h=100px, e.g. \"Phone number\")",
+      "heading: ~64sp (h=90px, e.g. \"Send OTP\")",
+      "heading: ~50sp (h=70px, e.g. \"Welcome to RevRag\")",
+      "heading: ~36sp (h=50px, e.g. \"Terms of Service\")"
+    ],
+    "spacing_pattern": "structured",
+    "spacing_details": {
+      "common_gaps": [
+        "50px",
+        "80px",
+        "70px",
+        "60px"
+      ],
+      "vertical_gaps": [
+        "50px",
+        "60px",
+        "70px",
+        "80px"
+      ],
+      "horizontal_gaps": [],
+      "margins": {
+        "estimated_left": "100px",
+        "estimated_top": "200px"
+      }
+    },
+    "layout": {
+      "type": "multi_column",
+      "columns": 4,
+      "alignment": "center",
+      "content_area": {
+        "left": "100px",
+        "top": "200px",
+        "right": "980px",
+        "bottom": "1070px"
+      }
+    },
+    "component_types": [
+      "button",
+      "image",
+      "label",
+      "text_input"
+    ],
+    "mode": "light",
+    "tone": "professional"
+  }
+}

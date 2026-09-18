@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User profile — Rebuilt</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+    
+    :root {
+        --bg-color: #FFFFFF;
+        --fg-color: #212121;
+        --primary-color: #1976D2;
+        --secondary-color: #424242;
+        --font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+        --border-radius: 8px;
+        --input-border: #BDBDBD;
+        --input-bg: #FFFFFF;
+        --button-text: #FFFFFF;
+        --shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        font-family: var(--font-family);
+        background-color: var(--bg-color);
+        color: var(--fg-color);
+        width: 360px;
+        min-height: 640px;
+        margin: 0 auto;
+        position: relative;
+        overflow-x: hidden;
+        border: 1px solid #E0E0E0;
+    }
+    .screen-container {
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        min-height: 640px;
+    }
+    .screen-header {
+        text-align: center;
+        margin-bottom: 24px;
+        padding-top: 16px;
+    }
+    .screen-header h1 {
+        font-size: 20px;
+        font-weight: 500;
+        color: var(--fg-color);
+    }
+    .screen-purpose {
+        font-size: 12px;
+        color: var(--secondary-color);
+        text-align: center;
+        margin-bottom: 20px;
+        font-style: italic;
+    }
+    
+    
+    .el-image {
+        width: 120px;
+        height: 120px;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        border-radius: 16px;
+        margin: 16px auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--button-text);
+        font-size: 12px;
+        text-align: center;
+        box-shadow: var(--shadow);
+    }
+    .el-label {
+        font-size: 16px;
+        color: var(--fg-color);
+        margin: 8px 0;
+        text-align: center;
+    }
+    .el-label.heading {
+        font-size: 22px;
+        font-weight: 600;
+        margin: 16px 0;
+    }
+    .el-label.caption {
+        font-size: 12px;
+        color: var(--secondary-color);
+    }
+    .el-button {
+        background-color: var(--primary-color);
+        color: var(--button-text);
+        border: none;
+        padding: 14px 32px;
+        border-radius: var(--border-radius);
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        margin: 8px auto;
+        display: block;
+        min-width: 200px;
+        text-align: center;
+        box-shadow: var(--shadow);
+        transition: opacity 0.2s;
+    }
+    .el-button:hover {
+        opacity: 0.9;
+    }
+    .el-button.secondary {
+        background-color: transparent;
+        color: var(--primary-color);
+        border: 1px solid var(--primary-color);
+        box-shadow: none;
+    }
+    .el-text-input {
+        width: 100%;
+        padding: 14px 16px;
+        border: 1px solid var(--input-border);
+        border-radius: var(--border-radius);
+        font-size: 16px;
+        margin: 8px 0;
+        background: var(--input-bg);
+        color: var(--fg-color);
+        outline: none;
+        transition: border-color 0.2s;
+    }
+    .el-text-input:focus {
+        border-color: var(--primary-color);
+    }
+    .el-checkbox, .el-radio, .el-switch, .el-toggle {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 8px 0;
+        font-size: 14px;
+    }
+    .el-dropdown {
+        width: 100%;
+        padding: 14px 16px;
+        border: 1px solid var(--input-border);
+        border-radius: var(--border-radius);
+        font-size: 16px;
+        margin: 8px 0;
+        background: var(--input-bg);
+        appearance: none;
+    }
+    .grid-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin: 8px 0;
+    }
+    .grid-row .el-button {
+        min-width: unset;
+        width: 100%;
+    }
+    .el-card {
+        background: var(--input-bg);
+        border-radius: var(--border-radius);
+        padding: 16px;
+        margin: 8px 0;
+        box-shadow: var(--shadow);
+    }
+    .spacer {
+        flex: 1;
+    }
+    .element-id {
+        position: absolute;
+        top: 2px;
+        right: 4px;
+        font-size: 9px;
+        color: #999;
+        font-family: monospace;
+    }
+    .el-wrapper {
+        position: relative;
+    }
+    
+    </style>
+</head>
+<body>
+<!-- Rebuilt from knowledge pack: screen_id=scr_profile_04 -->
+<div class="screen-container">
+    <div class="screen-header">
+        <h1>User profile</h1>
+    </div>
+    <div class="screen-purpose">User profile screen with personal information</div>
+    
+    <div class="el-wrapper" id="el_30"><span class="element-id">el_30</span><div class="el-image">Profile Photo</div></div>
+        <div class="el-wrapper" id="el_31"><span class="element-id">el_31</span><div class="el-label heading">User Name</div></div>
+        <div class="el-wrapper" id="el_32"><span class="element-id">el_32</span><div class="el-label heading">Email</div></div>
+        <div class="el-wrapper" id="el_33"><span class="element-id">el_33</span><button class="el-button">Edit Profile</button></div>
+</div>
+</body>
+</html>

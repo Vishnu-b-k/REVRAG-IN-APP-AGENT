@@ -1,0 +1,140 @@
+{
+  "id": "scr_dash_03",
+  "fingerprint": "c3d4e5f6a7b8c9d0",
+  "name": "Main dashboard",
+  "purpose": "Main dashboard showing key app sections and notifications",
+  "screenshot_url": "screenshots/dashboard.png",
+  "elements": [
+    {
+      "id": "el_20",
+      "role": "label",
+      "label": "Dashboard",
+      "bounds": [
+        50,
+        50,
+        400,
+        110
+      ],
+      "actions": []
+    },
+    {
+      "id": "el_21",
+      "role": "label",
+      "label": "Notifications",
+      "bounds": [
+        50,
+        150,
+        400,
+        210
+      ],
+      "actions": []
+    },
+    {
+      "id": "el_22",
+      "role": "button",
+      "label": "View Feed",
+      "bounds": [
+        50,
+        300,
+        520,
+        390
+      ],
+      "actions": [
+        "tap"
+      ]
+    },
+    {
+      "id": "el_23",
+      "role": "button",
+      "label": "Profile",
+      "bounds": [
+        560,
+        300,
+        1030,
+        390
+      ],
+      "actions": [
+        "tap"
+      ]
+    },
+    {
+      "id": "el_24",
+      "role": "button",
+      "label": "KYC Form",
+      "bounds": [
+        50,
+        450,
+        520,
+        540
+      ],
+      "actions": [
+        "tap"
+      ]
+    },
+    {
+      "id": "el_25",
+      "role": "button",
+      "label": "Settings",
+      "bounds": [
+        560,
+        450,
+        1030,
+        540
+      ],
+      "actions": [
+        "tap"
+      ]
+    }
+  ],
+  "forms": [],
+  "design_tokens": {
+    "dominant_colors": [
+      "#FFFFFF",
+      "#1976D2",
+      "#424242"
+    ],
+    "background_color": "#FFFFFF",
+    "foreground_color": "#212121",
+    "font_styles": [
+      "heading: ~64sp (h=90px, e.g. \"View Feed\")",
+      "heading: ~43sp (h=60px, e.g. \"Dashboard\")"
+    ],
+    "spacing_pattern": "structured",
+    "spacing_details": {
+      "common_gaps": [
+        "40px",
+        "90px",
+        "60px"
+      ],
+      "vertical_gaps": [
+        "40px",
+        "60px",
+        "90px"
+      ],
+      "horizontal_gaps": [
+        "40px"
+      ],
+      "margins": {
+        "estimated_left": "50px",
+        "estimated_top": "50px"
+      }
+    },
+    "layout": {
+      "type": "two_column_grid",
+      "columns": 2,
+      "alignment": "left",
+      "content_area": {
+        "left": "50px",
+        "top": "50px",
+        "right": "1030px",
+        "bottom": "540px"
+      }
+    },
+    "component_types": [
+      "button",
+      "label"
+    ],
+    "mode": "light",
+    "tone": "informational"
+  }
+}

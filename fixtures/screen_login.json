@@ -1,0 +1,124 @@
+{
+  "id": "scr_login_01",
+  "fingerprint": "a1b2c3d4e5f6a7b8",
+  "name": "User authentication",
+  "purpose": "User authentication / login screen with phone OTP. Displays app logo, welcome text, phone number input field, send OTP button, and terms of service link.",
+  "screenshot_url": "screenshots/login.png",
+  "elements": [
+    {"id": "el_00", "role": "image", "label": "App Logo", "bounds": [340, 200, 740, 500], "actions": []},
+    {"id": "el_01", "role": "label", "label": "Welcome to RevRag", "bounds": [200, 550, 880, 620], "actions": []},
+    {"id": "el_02", "role": "text_input", "label": "Phone number", "bounds": [100, 700, 980, 800], "actions": ["type_text"]},
+    {"id": "el_03", "role": "button", "label": "Send OTP", "bounds": [300, 870, 780, 960], "actions": ["tap"]},
+    {"id": "el_04", "role": "label", "label": "Terms of Service", "bounds": [150, 1020, 930, 1070], "actions": []}
+  ],
+  "forms": [
+    {"id": "el_02", "label": "Phone number", "input_type": "text", "required": true}
+  ],
+  "design_tokens": {
+    "dominant_colors": [],
+    "background_color": null,
+    "foreground_color": null,
+    "font_styles": [],
+    "spacing_pattern": null,
+    "component_types": ["text_input", "button"],
+    "mode": null,
+    "tone": null
+  },
+  "ui_tree": {
+    "package_name": "com.revrag.targetapp",
+    "activity_name": "com.revrag.targetapp.LoginActivity",
+    "root": {
+      "class_name": "android.widget.FrameLayout",
+      "text": null,
+      "content_description": null,
+      "bounds": [0, 0, 1080, 2340],
+      "clickable": false,
+      "focusable": false,
+      "editable": false,
+      "enabled": true,
+      "selected": false,
+      "checked": null,
+      "children": [
+        {
+          "class_name": "android.widget.LinearLayout",
+          "text": null,
+          "content_description": null,
+          "bounds": [0, 0, 1080, 2340],
+          "clickable": false,
+          "focusable": false,
+          "editable": false,
+          "enabled": true,
+          "selected": false,
+          "checked": null,
+          "children": [
+            {
+              "class_name": "android.widget.ImageView",
+              "text": null,
+              "content_description": "App Logo",
+              "bounds": [340, 200, 740, 500],
+              "clickable": false,
+              "focusable": false,
+              "editable": false,
+              "enabled": true,
+              "selected": false,
+              "checked": null,
+              "children": []
+            },
+            {
+              "class_name": "android.widget.TextView",
+              "text": "Welcome to RevRag",
+              "content_description": null,
+              "bounds": [200, 550, 880, 620],
+              "clickable": false,
+              "focusable": false,
+              "editable": false,
+              "enabled": true,
+              "selected": false,
+              "checked": null,
+              "children": []
+            },
+            {
+              "class_name": "android.widget.EditText",
+              "text": "",
+              "content_description": "Phone number",
+              "bounds": [100, 700, 980, 800],
+              "clickable": true,
+              "focusable": true,
+              "editable": true,
+              "enabled": true,
+              "selected": false,
+              "checked": null,
+              "children": []
+            },
+            {
+              "class_name": "android.widget.Button",
+              "text": "Send OTP",
+              "content_description": null,
+              "bounds": [300, 870, 780, 960],
+              "clickable": true,
+              "focusable": true,
+              "editable": false,
+              "enabled": true,
+              "selected": false,
+              "checked": null,
+              "children": []
+            },
+            {
+              "class_name": "android.widget.TextView",
+              "text": "By continuing you agree to our Terms of Service",
+              "content_description": null,
+              "bounds": [150, 1020, 930, 1070],
+              "clickable": false,
+              "focusable": false,
+              "editable": false,
+              "enabled": true,
+              "selected": false,
+              "checked": null,
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

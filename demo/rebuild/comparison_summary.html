@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rebuild Comparison Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #F5F5F5;
+            color: #333;
+            padding: 32px;
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 32px;
+        }
+        .summary-cards {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            flex: 1;
+        }
+        .stat-card .value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1976D2;
+        }
+        .stat-card .label {
+            font-size: 12px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 32px;
+        }
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid #F0F0F0;
+        }
+        th {
+            background: #FAFAFA;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #666;
+        }
+        td a {
+            color: #1976D2;
+            text-decoration: none;
+        }
+        .previews {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .preview-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .preview-card h3 {
+            font-size: 14px;
+            margin-bottom: 12px;
+            font-family: monospace;
+        }
+        .preview-card iframe {
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+        }
+        .preview-card p {
+            margin-top: 8px;
+            font-size: 12px;
+        }
+        .info-flow {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 32px;
+            text-align: center;
+        }
+        .info-flow .arrow {
+            font-size: 24px;
+            color: #1976D2;
+            margin: 0 12px;
+        }
+        .info-flow .step {
+            display: inline-block;
+            background: #E3F2FD;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔁 Rebuild Comparison Report</h1>
+    <p class="subtitle">Knowledge pack → Screen reconstruction evidence</p>
+
+    <div class="info-flow">
+        <span class="step">📱 Original App</span>
+        <span class="arrow">→</span>
+        <span class="step">📦 Knowledge Pack</span>
+        <span class="arrow">→</span>
+        <span class="step">🏗️ Rebuild (no screenshot)</span>
+        <span class="arrow">→</span>
+        <span class="step">📊 Comparison</span>
+    </div>
+
+    <div class="summary-cards">
+        <div class="stat-card">
+            <div class="value">4/4</div>
+            <div class="label">Screens Rebuilt</div>
+        </div>
+        <div class="stat-card">
+            <div class="value">98%</div>
+            <div class="label">Average Score</div>
+        </div>
+        <div class="stat-card">
+            <div class="value">100%</div>
+            <div class="label">Element Coverage</div>
+        </div>
+        <div class="stat-card">
+            <div class="value">93%</div>
+            <div class="label">Text Coverage</div>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Screen</th>
+                <th>ID</th>
+                <th>Elements</th>
+                <th>Text</th>
+                <th>Components</th>
+                <th>Layout</th>
+                <th>Overall</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr>
+            <td><a href="scr_login_01_rebuilt.html">User authentication</a></td>
+            <td>scr_login_01</td>
+            <td>100%</td>
+            <td>92%</td>
+            <td>100%</td>
+            <td>100%</td>
+            <td style="color: #4CAF50; font-weight: bold">98%</td>
+        </tr>
+        
+        <tr>
+            <td><a href="scr_otp_02_rebuilt.html">OTP verification</a></td>
+            <td>scr_otp_02</td>
+            <td>100%</td>
+            <td>80%</td>
+            <td>100%</td>
+            <td>100%</td>
+            <td style="color: #4CAF50; font-weight: bold">94%</td>
+        </tr>
+        
+        <tr>
+            <td><a href="scr_dash_03_rebuilt.html">Main dashboard</a></td>
+            <td>scr_dash_03</td>
+            <td>100%</td>
+            <td>100%</td>
+            <td>100%</td>
+            <td>100%</td>
+            <td style="color: #4CAF50; font-weight: bold">100%</td>
+        </tr>
+        
+        <tr>
+            <td><a href="scr_profile_04_rebuilt.html">User profile</a></td>
+            <td>scr_profile_04</td>
+            <td>100%</td>
+            <td>100%</td>
+            <td>100%</td>
+            <td>100%</td>
+            <td style="color: #4CAF50; font-weight: bold">100%</td>
+        </tr>
+        
+        </tbody>
+    </table>
+
+    <h2 style="margin-bottom: 16px;">Rebuilt Screen Previews</h2>
+    <div class="previews">
+        
+        <div class="preview-card">
+            <h3>scr_login_01</h3>
+            <iframe src="scr_login_01_rebuilt.html" width="380" height="680"></iframe>
+            <p><a href="scr_login_01_pack_entry.json">View pack entry</a> · <a href="scr_login_01_rebuilt.html">Open full page</a></p>
+        </div>
+        
+        <div class="preview-card">
+            <h3>scr_otp_02</h3>
+            <iframe src="scr_otp_02_rebuilt.html" width="380" height="680"></iframe>
+            <p><a href="scr_otp_02_pack_entry.json">View pack entry</a> · <a href="scr_otp_02_rebuilt.html">Open full page</a></p>
+        </div>
+        
+        <div class="preview-card">
+            <h3>scr_dash_03</h3>
+            <iframe src="scr_dash_03_rebuilt.html" width="380" height="680"></iframe>
+            <p><a href="scr_dash_03_pack_entry.json">View pack entry</a> · <a href="scr_dash_03_rebuilt.html">Open full page</a></p>
+        </div>
+        
+        <div class="preview-card">
+            <h3>scr_profile_04</h3>
+            <iframe src="scr_profile_04_rebuilt.html" width="380" height="680"></iframe>
+            <p><a href="scr_profile_04_pack_entry.json">View pack entry</a> · <a href="scr_profile_04_rebuilt.html">Open full page</a></p>
+        </div>
+        
+    </div>
+</body>
+</html>

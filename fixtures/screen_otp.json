@@ -1,0 +1,110 @@
+{
+  "id": "scr_otp_02",
+  "fingerprint": "b2c3d4e5f6a7b8c9",
+  "name": "OTP verification",
+  "purpose": "OTP verification screen for phone authentication. Shows a heading, an OTP input field, a verify button, and a resend OTP button.",
+  "screenshot_url": "screenshots/otp.png",
+  "elements": [
+    {"id": "el_10", "role": "label", "label": "Enter OTP", "bounds": [200, 400, 880, 470], "actions": []},
+    {"id": "el_11", "role": "text_input", "label": "OTP code", "bounds": [200, 550, 880, 650], "actions": ["type_text"]},
+    {"id": "el_12", "role": "button", "label": "Verify", "bounds": [300, 750, 780, 840], "actions": ["tap"]},
+    {"id": "el_13", "role": "button", "label": "Resend OTP", "bounds": [300, 900, 780, 970], "actions": ["tap"]}
+  ],
+  "forms": [
+    {"id": "el_11", "label": "OTP code", "input_type": "text", "required": true}
+  ],
+  "design_tokens": {
+    "dominant_colors": [],
+    "background_color": null,
+    "foreground_color": null,
+    "font_styles": [],
+    "spacing_pattern": null,
+    "component_types": ["text_input", "button"],
+    "mode": null,
+    "tone": null
+  },
+  "ui_tree": {
+    "package_name": "com.revrag.targetapp",
+    "activity_name": "com.revrag.targetapp.OtpActivity",
+    "root": {
+      "class_name": "android.widget.FrameLayout",
+      "text": null,
+      "content_description": null,
+      "bounds": [0, 0, 1080, 2340],
+      "clickable": false,
+      "focusable": false,
+      "editable": false,
+      "enabled": true,
+      "selected": false,
+      "checked": null,
+      "children": [
+        {
+          "class_name": "android.widget.LinearLayout",
+          "text": null,
+          "content_description": null,
+          "bounds": [0, 0, 1080, 2340],
+          "clickable": false,
+          "focusable": false,
+          "editable": false,
+          "enabled": true,
+          "selected": false,
+          "checked": null,
+          "children": [
+            {
+              "class_name": "android.widget.TextView",
+              "text": "Enter OTP",
+              "content_description": null,
+              "bounds": [200, 400, 880, 470],
+              "clickable": false,
+              "focusable": false,
+              "editable": false,
+              "enabled": true,
+              "selected": false,
+              "checked": null,
+              "children": []
+            },
+            {
+              "class_name": "android.widget.EditText",
+              "text": "",
+              "content_description": "OTP code",
+              "bounds": [200, 550, 880, 650],
+              "clickable": true,
+              "focusable": true,
+              "editable": true,
+              "enabled": true,
+              "selected": false,
+              "checked": null,
+              "children": []
+            },
+            {
+              "class_name": "android.widget.Button",
+              "text": "Verify",
+              "content_description": null,
+              "bounds": [300, 750, 780, 840],
+              "clickable": true,
+              "focusable": true,
+              "editable": false,
+              "enabled": true,
+              "selected": false,
+              "checked": null,
+              "children": []
+            },
+            {
+              "class_name": "android.widget.Button",
+              "text": "Resend OTP",
+              "content_description": null,
+              "bounds": [300, 900, 780, 970],
+              "clickable": true,
+              "focusable": true,
+              "editable": false,
+              "enabled": true,
+              "selected": false,
+              "checked": null,
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
