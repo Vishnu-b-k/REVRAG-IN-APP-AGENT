@@ -24,6 +24,11 @@
                                                    │  │ State Machine │  │
                                                    │  └───────┬───────┘  │
                                                    │          │          │
+                                                   │  ┌───────▼───────┐  │
+                                                   │  │ Design Token │  │
+                                                   │  │  Extractor   │  │
+                                                   │  └───────┬───────┘  │
+                                                   │          │          │
 ┌──────────────┐   GET /knowledge-pack             │  ┌───────▼───────┐  │
 │   Viewer     │ ◀──────────────────────────────  │  │ Knowledge Pack│  │
 │ (Maniarasan)  │                                   │  │   Builder     │  │
@@ -50,29 +55,32 @@ REVRAG-IN-APP-AGENT/
 │   ├── routes/                      # API endpoints
 │   │   ├── health.py                # GET /health
 │   │   ├── ingest.py                # POST /ingest-screen
-│   │   └── pack.py                  # GET /knowledge-pack, POST /finalize
+│   │   ├── pack.py                  # GET /knowledge-pack, POST /finalize
+│   │   ├── simulate.py              # POST /simulate/run (demo pipeline)
+│   │   └── sessions.py              # GET /sessions
 │   └── services/                    # Business logic
 │       ├── session.py               # Session store + event log
 │       ├── screen_ingestion.py      # Ingestion pipeline
 │       ├── exploration.py           # Exploration state machine
 │       ├── fingerprint.py           # Screen fingerprinting + dedup
-│       └── pack_builder.py          # Knowledge pack generation
+│       └── pack_builder.py          # Knowledge pack generation + design tokens
+├── design_extractor/                # Design token extraction (Slaven)
+│   ├── extractor.py                 # Per-screen: colors, fonts, spacing, layout
+│   ├── aggregator.py                # Cross-screen: global design system
+│   └── __main__.py                  # CLI entrypoint
+├── viewer/                          # Knowledge pack viewer (Maniarsan)
+│   ├── src/main.js                  # App logic
+│   ├── src/data-loader.js           # Pack loading (file, API, mock)
+│   ├── src/style.css                # Styles
+│   └── public/screenshots/           # Screen screenshots
+├── rebuild_test/                    # Rebuild testing (Amogh)
+│   ├── rebuilder.py                 # HTML screen rebuilder from pack
+│   ├── compare.py                   # Comparison metrics
+│   └── __main__.py                  # CLI entrypoint
 ├── fixtures/                        # Test data
-│   └── sample_observation.json      # Sample Login screen observation
 ├── docs/                            # Documentation
-│   ├── api-contract.md              # Full API contract spec
-│   └── sample_knowledge_pack.json   # Sample 4-screen knowledge pack
-├── tests/                           # Pytest suite (110 tests)
-│   ├── conftest.py                  # Shared fixtures
-│   ├── test_health.py               # Health endpoint tests
-│   ├── test_schemas.py              # Schema validation tests
-│   ├── test_ingest.py               # Ingestion pipeline tests
-│   ├── test_exploration.py          # State machine tests
-│   ├── test_fingerprint.py          # Fingerprinting tests
-│   ├── test_pack.py                 # Knowledge pack tests
-│   └── test_provider.py             # Provider + fallback tests
+├── tests/                           # Pytest suite (125 tests)
 ├── .env.example                     # Environment template
-├── .gitignore                       # Git exclusions
 └── requirements.txt                 # Python dependencies
 ```
 
@@ -240,22 +248,44 @@ The pack contains:
 
 ### 🎨 Design System (Slaven)
 
-`DesignTokens` and `GlobalDesignSystem` are placeholder objects in each screen/pack.  
-Fill them in with extracted colors, typography, spacing from screenshots.
+Design tokens are now **automatically extracted** by `design_extractor/` and wired into the knowledge pack.
+Each screen gets: `dominant_colors`, `font_styles`, `spacing_pattern`, `mode`, `tone`, `component_types`.
+The global design system aggregates these across all screens.
 
 ---
 
-## 🏗️ Build Phases (Completed)
+## 🏗️ Build Phases
 
-| Phase | Name | Status | Tests |
-|-------|------|--------|-------|
-| V-0 | Backend Bootstrap | ✅ Done | 15 |
-| V-1 | Screen Ingestion + Mock Provider | ✅ Done | 17 |
-| V-2 | Exploration State Machine | ✅ Done | 15 |
-| V-3 | Stable Fingerprinting + Dedup | ✅ Done | 26 |
-| V-4 | Knowledge Pack + Compaction | ✅ Done | 21 |
-| V-5 | Gemini Provider Integration | ✅ Done | 16 |
-| **Total** | | | **110** |
+| Phase | Name | Owner | Status | Tests |
+|-------|------|-------|--------|-------|
+| V-0 | Backend Bootstrap | Vishnu | ✅ Done | 15 |
+| V-1 | Screen Ingestion + Mock Provider | Vishnu | ✅ Done | 17 |
+| V-2 | Exploration State Machine | Vishnu | ✅ Done | 15 |
+| V-3 | Stable Fingerprinting + Dedup | Vishnu | ✅ Done | 26 |
+| V-4 | Knowledge Pack + Compaction | Vishnu | ✅ Done | 21 |
+| V-5 | Gemini Provider Integration | Vishnu | ✅ Done | 16 |
+| S-1 | Design Token Extraction | Slaven | ✅ Done | — |
+| S-2 | Global Design System Aggregation | Slaven | ✅ Done | — |
+| M-0 | Viewer App | Maniarsan | ✅ Done | — |
+| A-0 | Simulate + Rebuild Test | Amogh | ✅ Done | — |
+| **V-6** | **Full Integration** | **Vishnu** | **✅ Done** | **15** |
+| **Total** | | | | **125** |
+
+---
+
+## 🚀 Demo
+
+Run the full simulation pipeline (no Android device required):
+
+```bash
+# Start the server
+python -m orchestrator.main
+
+# In another terminal, trigger a simulated exploration
+curl -X POST http://localhost:8000/simulate/run | python -m json.tool
+```
+
+This simulates a 5-screen Android app exploration (Login → OTP → Dashboard → Profile → KYC) and returns a complete knowledge pack with design tokens.
 
 ---
 

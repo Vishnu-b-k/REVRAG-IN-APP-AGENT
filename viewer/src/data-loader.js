@@ -164,6 +164,44 @@ export async function loadKnowledgePackFromString(jsonString, sizeBytes) {
   return validateAndNormalize(raw);
 }
 
+// ─── Load: From Orchestrator API ───────────────────────────────────
+
+/**
+ * Loads a Knowledge Pack from the RevRag Orchestrator API.
+ *
+ * Supports two modes:
+ * 1. GET /knowledge-pack/{sessionId} — fetch an existing session's pack
+ * 2. POST /simulate/run — trigger a full simulation and get the resulting pack
+ *
+ * @param {Object} options
+ * @param {string} [options.baseUrl='http://localhost:8000'] - Orchestrator URL
+ * @param {string} [options.sessionId] - Session ID for GET mode
+ * @param {boolean} [options.simulate=false] - If true, triggers POST /simulate/run
+ * @returns {Promise<KnowledgePack>}
+ * @throws {Error} If the API call fails or returns invalid data
+ */
+export async function loadKnowledgePackFromAPI(options = {}) {
+  const baseUrl = (options.baseUrl || 'http://localhost:8000').replace(/\/$/, '');
+
+  let raw;
+  if (options.simulate) {
+    const res = await fetch(`${baseUrl}/simulate/run`, { method: 'POST' });
+    if (!res.ok) throw new Error(`Simulate API error: ${res.status}`);
+    const data = await res.json();
+    raw = data.knowledge_pack;
+  } else if (options.sessionId) {
+    const res = await fetch(`${baseUrl}/knowledge-pack/${options.sessionId}`);
+    if (!res.ok) throw new Error(`API error: ${res.status}`);
+    raw = await res.json();
+  } else {
+    throw new Error('Provide either sessionId or simulate=true');
+  }
+
+  raw._is_mock = false;
+  currentSource = 'file';
+
+  return validateAndNormalize(raw);
+}
 // ─── Validate & Normalize ──────────────────────────────────────────
 
 /**

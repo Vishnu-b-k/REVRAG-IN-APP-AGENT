@@ -1,9 +1,9 @@
 """Knowledge pack generation and compaction.
 
 Builds the final KnowledgePack from session event logs, applying
-canonicalisation, deduplication, and stable ordering.
+canonicalisation, deduplication, design token extraction, and stable ordering.
 
-Phase V-4 of the execution plan.
+Phase V-4 + V-6 integration.
 """
 
 from __future__ import annotations
@@ -28,6 +28,14 @@ from orchestrator.services.fingerprint import (
     compute_screen_id,
 )
 from orchestrator.services.session import EventType, SessionState
+
+# Design extraction — Slaven's S-1/S-2 modules
+try:
+    from design_extractor.extractor import extract_design_tokens
+    from design_extractor.aggregator import aggregate_design_system, enrich_knowledge_pack
+    _HAS_DESIGN_EXTRACTOR = True
+except ImportError:
+    _HAS_DESIGN_EXTRACTOR = False
 
 logger = logging.getLogger(__name__)
 
@@ -68,15 +76,25 @@ def build_knowledge_pack(session: SessionState) -> KnowledgePack:
 
             # Build screen if not already captured
             if screen_id not in screens:
+                elements = data.get("elements", [])
+                purpose = data.get("purpose", "")
+
+                # Extract design tokens if Slaven's module is available
+                design_tokens = _extract_screen_design_tokens(
+                    elements=elements,
+                    purpose=purpose,
+                    ui_tree=data.get("ui_tree"),
+                )
+
                 screens[screen_id] = Screen(
                     id=screen_id,
                     fingerprint=data.get("fingerprint", ""),
                     name=_infer_screen_name(screen_id, data),
-                    purpose=data.get("purpose", ""),
+                    purpose=purpose,
                     screenshot_url=data.get("screenshot_url"),
-                    elements=data.get("elements", []),
-                    forms=_extract_forms(data.get("elements", [])),
-                    design_tokens=DesignTokens(),  # Placeholder for Slaven (S-1)
+                    elements=elements,
+                    forms=_extract_forms(elements),
+                    design_tokens=design_tokens,
                 )
 
             # Track journey
@@ -156,13 +174,16 @@ def build_knowledge_pack(session: SessionState) -> KnowledgePack:
 
     duration = time.time() - session.created_at
 
+    # ── Aggregate global design system from per-screen tokens ────────
+    global_ds = _aggregate_global_design_system(sorted_screens)
+
     pack = KnowledgePack(
         schema_version="1.0",
         app_metadata=_build_app_metadata(session),
         screens=sorted_screens,
         transitions=sorted_transitions,
         journeys=journeys,
-        global_design_system=GlobalDesignSystem(),  # Placeholder for Slaven (S-2)
+        global_design_system=global_ds,
         scan_metadata=ScanMetadata(
             total_steps=session.current_step + 1,
             screens_discovered=len(screens),
@@ -261,3 +282,69 @@ def _build_app_metadata(session: SessionState) -> dict[str, Any]:
                 break
 
     return metadata
+
+
+def _extract_screen_design_tokens(
+    elements: list[dict[str, Any]],
+    purpose: str,
+    ui_tree: dict[str, Any] | None = None,
+) -> DesignTokens:
+    """Extract design tokens for a single screen.
+
+    Uses Slaven's design_extractor if available, otherwise returns
+    empty DesignTokens placeholder.
+    """
+    if not _HAS_DESIGN_EXTRACTOR:
+        return DesignTokens()
+
+    try:
+        # Build the screen_data dict that extract_design_tokens expects
+        screen_data: dict[str, Any] = {
+            "elements": elements,
+            "purpose": purpose,
+        }
+        if ui_tree:
+            screen_data["ui_tree"] = ui_tree
+
+        tokens_dict = extract_design_tokens(screen_data)
+
+        return DesignTokens(
+            dominant_colors=tokens_dict.get("dominant_colors", []),
+            background_color=tokens_dict.get("background_color"),
+            foreground_color=tokens_dict.get("foreground_color"),
+            font_styles=tokens_dict.get("font_styles", []),
+            spacing_pattern=tokens_dict.get("spacing_pattern"),
+            component_types=tokens_dict.get("component_types", []),
+            mode=tokens_dict.get("mode"),
+            tone=tokens_dict.get("tone"),
+        )
+    except Exception as exc:
+        logger.warning("Design token extraction failed: %s", exc)
+        return DesignTokens()
+
+
+def _aggregate_global_design_system(screens: list[Screen]) -> GlobalDesignSystem:
+    """Aggregate per-screen tokens into a global design system.
+
+    Uses Slaven's aggregator if available, otherwise returns
+    empty GlobalDesignSystem placeholder.
+    """
+    if not _HAS_DESIGN_EXTRACTOR:
+        return GlobalDesignSystem()
+
+    try:
+        # Convert Screen.design_tokens to dicts for the aggregator
+        tokens_list = [s.design_tokens.model_dump() for s in screens]
+        global_dict = aggregate_design_system(tokens_list)
+
+        return GlobalDesignSystem(
+            color_palette=global_dict.get("color_palette", []),
+            spacing_values=global_dict.get("spacing_values", []),
+            recurring_components=global_dict.get("recurring_components", []),
+            typography_hierarchy=global_dict.get("typography_hierarchy", []),
+            tone=global_dict.get("tone"),
+            mode=global_dict.get("mode"),
+        )
+    except Exception as exc:
+        logger.warning("Design system aggregation failed: %s", exc)
+        return GlobalDesignSystem()

@@ -118,6 +118,8 @@ async def ingest_screen(
             "is_new_screen": is_new,
             "purpose": analysis.screen_purpose,
             "element_count": len(elements),
+            "elements": [el.model_dump() for el in elements],
+            "ui_tree": ui_tree_dict,
             "next_action_type": next_action.type.value,
             "confidence": next_action.confidence,
         },
