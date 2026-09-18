@@ -9,6 +9,10 @@ from orchestrator import __version__
 from orchestrator.routes.health import router as health_router
 from orchestrator.routes.ingest import router as ingest_router
 from orchestrator.routes.pack import router as pack_router
+from orchestrator.routes.simulate import router as simulate_router
+from orchestrator.routes.sessions import router as sessions_router
+from fastapi.staticfiles import StaticFiles
+import os
 
 
 @asynccontextmanager
@@ -40,6 +44,12 @@ app.add_middleware(
 app.include_router(health_router)
 app.include_router(ingest_router)
 app.include_router(pack_router)
+app.include_router(simulate_router)
+app.include_router(sessions_router)
+
+viewer_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "viewer")
+if os.path.isdir(viewer_dir):
+    app.mount("/viewer", StaticFiles(directory=viewer_dir, html=True), name="viewer")
 
 
 if __name__ == "__main__":

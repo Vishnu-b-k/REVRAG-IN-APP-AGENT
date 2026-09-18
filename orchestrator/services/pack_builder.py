@@ -38,7 +38,7 @@ def build_knowledge_pack(session: SessionState) -> KnowledgePack:
     Steps:
     1. Extract screen observations from events.
     2. Canonicalise and deduplicate screens.
-    3. Build transitions from state graph.
+    3. Build transitions from state graph (prefer controller data).
     4. Infer journeys from event sequence.
     5. Attach design_tokens placeholders.
     6. Compute scan metadata.
@@ -47,7 +47,10 @@ def build_knowledge_pack(session: SessionState) -> KnowledgePack:
 
     start_time = time.time()
 
-    dedup = ScreenDeduplicator()
+    # Use session's deduplicator if available, else create a new one
+    dedup = getattr(session, 'deduplicator', None) or ScreenDeduplicator()
+    controller = getattr(session, 'exploration_controller', None)
+
     screens: dict[str, Screen] = {}
     transitions: list[Transition] = []
     seen_transitions: set[str] = set()
@@ -85,22 +88,45 @@ def build_knowledge_pack(session: SessionState) -> KnowledgePack:
             prev = data.get("previous_state_id")
             # Transitions are built from consecutive screen visits below
 
-    # ── 2. Build transitions from journey sequence ───────────────────
+    # ── 2. Build transitions ────────────────────────────────────────
+    # Prefer exploration controller transitions (richer action data)
 
-    for i in range(len(journey_steps) - 1):
-        from_id = journey_steps[i]
-        to_id = journey_steps[i + 1]
-        transition_key = f"{from_id}->{to_id}"
+    if controller and controller.transitions:
+        for t in controller.transitions:
+            from_state = t.get("from", "")
+            to_state = t.get("to", "")
+            # Map state_ids back to screen_ids via the controller's state graph
+            from_node = controller.states.get(from_state)
+            to_node = controller.states.get(to_state)
+            if from_node and to_node:
+                from_scr = from_node.screen_id
+                to_scr = to_node.screen_id
+                transition_key = f"{from_scr}->{to_scr}"
+                if transition_key not in seen_transitions and from_scr != to_scr:
+                    seen_transitions.add(transition_key)
+                    transitions.append(Transition(
+                        **{
+                            "from": from_scr,
+                            "to": to_scr,
+                            "action": t.get("action", {"step": t.get("step", 0)}),
+                        }
+                    ))
+    else:
+        # Fallback: infer transitions from journey sequence
+        for i in range(len(journey_steps) - 1):
+            from_id = journey_steps[i]
+            to_id = journey_steps[i + 1]
+            transition_key = f"{from_id}->{to_id}"
 
-        if transition_key not in seen_transitions and from_id != to_id:
-            seen_transitions.add(transition_key)
-            transitions.append(Transition(
-                **{
-                    "from": from_id,
-                    "to": to_id,
-                    "action": {"step": i},
-                }
-            ))
+            if transition_key not in seen_transitions and from_id != to_id:
+                seen_transitions.add(transition_key)
+                transitions.append(Transition(
+                    **{
+                        "from": from_id,
+                        "to": to_id,
+                        "action": {"step": i},
+                    }
+                ))
 
     # ── 3. Build journeys ────────────────────────────────────────────
 
@@ -141,7 +167,7 @@ def build_knowledge_pack(session: SessionState) -> KnowledgePack:
             total_steps=session.current_step + 1,
             screens_discovered=len(screens),
             transitions_discovered=len(transitions),
-            duplicates_merged=0,  # Will be populated when dedup is wired
+            duplicates_merged=dedup.duplicates_merged,
             exploration_duration_seconds=round(duration, 2),
             pack_size_bytes=0,  # Filled below
         ),

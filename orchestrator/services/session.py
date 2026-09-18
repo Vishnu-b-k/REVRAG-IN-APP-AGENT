@@ -11,7 +11,11 @@ from __future__ import annotations
 import time
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any, Optional
+from typing import TYPE_CHECKING, Any, Optional
+
+if TYPE_CHECKING:
+    from orchestrator.services.exploration import ExplorationController
+    from orchestrator.services.fingerprint import ScreenDeduplicator
 
 
 class EventType(str, Enum):
@@ -48,6 +52,10 @@ class SessionState:
     screens_seen: dict[str, dict[str, Any]] = field(default_factory=dict)
     attempted_actions: list[str] = field(default_factory=list)
 
+    # Exploration subsystems — initialized by SessionStore.get_or_create()
+    exploration_controller: Optional[ExplorationController] = field(default=None, repr=False)
+    deduplicator: Optional[ScreenDeduplicator] = field(default=None, repr=False)
+
     def record_event(
         self,
         event_type: EventType,
@@ -61,13 +69,19 @@ class SessionState:
 
     def get_exploration_context(self) -> dict[str, Any]:
         """Build context dict for the LLM provider."""
-        return {
+        ctx: dict[str, Any] = {
             "session_id": self.session_id,
             "current_step": self.current_step,
             "screens_visited": list(self.screens_seen.keys()),
             "attempted_actions": self.attempted_actions,
             "total_events": len(self.events),
         }
+        # Include controller stats if available
+        if self.exploration_controller:
+            ctrl_stats = self.exploration_controller.get_stats()
+            ctx["exploration_status"] = ctrl_stats.get("status", "unknown")
+            ctx["frontier_size"] = ctrl_stats.get("frontier_size", 0)
+        return ctx
 
 
 class SessionStore:
@@ -83,7 +97,16 @@ class SessionStore:
     def get_or_create(self, session_id: str) -> SessionState:
         """Return existing session or create a new one."""
         if session_id not in self._sessions:
+            from orchestrator.config import settings
+            from orchestrator.services.exploration import ExplorationController
+            from orchestrator.services.fingerprint import ScreenDeduplicator
+
             session = SessionState(session_id=session_id)
+            session.exploration_controller = ExplorationController(
+                session_id=session_id,
+                max_step_budget=settings.max_step_budget,
+            )
+            session.deduplicator = ScreenDeduplicator()
             session.record_event(EventType.SESSION_START, step=0)
             self._sessions[session_id] = session
         return self._sessions[session_id]
