@@ -151,11 +151,17 @@ async def run_simulation():
         
     pack = finalize_pack(session)
     
-    # Patch screenshot URLs for the simulation demo
+    # Patch screenshot URLs — map screen IDs to actual app screenshots
+    # These images are served from viewer/public/screenshots/ on the Vercel deployment
+    SCREENSHOT_MAP = {
+        "scr_6edf4f0a": "/screenshots/scr_login.jpg",      # LoginActivity
+        "scr_d2988000": "/screenshots/scr_login.jpg",       # OTPActivity (closest match)
+        "scr_8ecc448b": "/screenshots/scr_dashboard.jpg",   # DashboardActivity
+        "scr_dc2459da": "/screenshots/scr_profile.jpg",     # ProfileActivity
+        "scr_6c94648c": "/screenshots/scr_details.jpg",     # SettingsActivity
+    }
     for screen in pack.screens:
-        # Use placehold.co with our skill.md color palette (Dynamic Black bg, Apocalyptic Orange text)
-        text = screen.name.replace(" ", "+")
-        screen.screenshot_url = f"https://placehold.co/1080x2340/151314/DF5E39?text={text}"
+        screen.screenshot_url = SCREENSHOT_MAP.get(screen.id, "/screenshots/scr_dashboard.jpg")
     
     return SimulationResponse(
         session_id=session_id,
