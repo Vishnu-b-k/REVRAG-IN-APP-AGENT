@@ -283,7 +283,7 @@ class TestSameScreenDifferentUser:
 
     def test_different_usernames_same_screen_id(self):
         id1 = compute_screen_id(compute_fingerprint(_login_screen(username="Vishnu")))
-        id2 = compute_screen_id(compute_fingerprint(_login_screen(username="Maniarsan")))
+        id2 = compute_screen_id(compute_fingerprint(_login_screen(username="Maniarasan")))
         assert id1 == id2
 
 

@@ -2,7 +2,7 @@
 
 > Autonomous Android exploration agent that discovers app screens, builds a structured **App Knowledge Pack**, and supports rebuild testing — all without manual flow recording.
 
-**Team:** Vishnu · Maniarsan · Amogh · Slaven  
+**Team:** Vishnu · Maniarasan · Amogh · Slaven  
 **Track:** PS-002 · RevRag In-App Agent · AI Build Challenge Bengaluru  
 **Date:** 18 September 2026
 
@@ -26,7 +26,7 @@
                                                    │          │          │
 ┌──────────────┐   GET /knowledge-pack             │  ┌───────▼───────┐  │
 │   Viewer     │ ◀──────────────────────────────  │  │ Knowledge Pack│  │
-│ (Maniarsan)  │                                   │  │   Builder     │  │
+│ (Maniarasan)  │                                   │  │   Builder     │  │
 └──────────────┘                                   │  └───────────────┘  │
                                                    └─────────────────────┘
 ```
@@ -228,7 +228,7 @@ Your integration point is `POST /ingest-screen`. Serialize the accessibility tre
 
 The response tells you exactly what to do next: `type_text`, `tap`, `scroll`, `back`, or `null` (stop).
 
-### 🎨 Viewer Team (Maniarsan)
+### 🎨 Viewer Team (Maniarasan)
 
 Your data source is `GET /knowledge-pack/{session_id}` or the sample at `docs/sample_knowledge_pack.json`.
 
