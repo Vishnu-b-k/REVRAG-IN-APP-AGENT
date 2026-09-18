@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand colors from skill.md -->
+    <color name="color_black">#151314</color>
+    <color name="color_honey">#F2E2CC</color>
+    <color name="color_egg">#DBCBAD</color>
+    <color name="color_orange">#DF5E39</color>
+    <color name="color_white">#FFF9F2</color>
+    <color name="color_cream">#F8F0E5</color>
+    <color name="color_muted">#6E665D</color>
+    <color name="color_border">#CFC1A7</color>
+</resources>

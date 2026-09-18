@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.RevRagTargetApp" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/color_black</item>
+        <item name="android:navigationBarColor">@color/color_black</item>
+        <item name="android:windowBackground">@color/color_cream</item>
+    </style>
+</resources>

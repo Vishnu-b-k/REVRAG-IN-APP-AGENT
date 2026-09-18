@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RevRag Target App</string>
+    <string name="accessibility_service_label">RevRag In-App Autonomous Explorer</string>
+    <string name="accessibility_service_description">Autonomous UI exploration agent for RevRag App Knowledge Pack generation and rebuild testing.</string>
+</resources>
